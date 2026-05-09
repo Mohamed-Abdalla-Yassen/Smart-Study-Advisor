@@ -23,3 +23,6 @@ no_prereq_course(Course, Department) :-
 smart_recommend(StudentYear, StudentPref, MaxDifficulty, Course) :-
     course(Course, MaxDifficulty, _Prereq, StudentPref, CourseYear, _Dept),
     CourseYear =< StudentYear.
+
+recommend(Difficulty, Prereq, Preference, Year, Department, RecommendedCourse) :-
+    course(RecommendedCourse, Difficulty, Prereq, Preference, Year, Department).
