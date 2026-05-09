@@ -9,6 +9,9 @@ from pyswip import Prolog
 import os
 from django.conf import settings
 
+
+from groq import Groq
+
 # Initialize Prolog once when the server starts
 prolog = Prolog()
 
@@ -105,3 +108,46 @@ def get_recommendations_post(request):
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
     else:
         return JsonResponse({"status": "error", "message": "Only POST method allowed"}, status=405)
+    
+
+client = Groq(api_key="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")
+
+@csrf_exempt
+def get_AI_recommendations(request):
+    try:
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            difficulty = data.get('difficulty', 'Medium')
+            prereq = data.get('prereq', 'nan')
+            user_pref = data.get('pref', 'Programming')
+            user_year = data.get('year', '4')
+            user_dept = data.get('dept', 'CSE')
+
+            prompt = (
+                f"As an advisor, recommend a course for a Year {user_year} {user_dept} student "
+                f"who likes {user_pref} and wants {difficulty} difficulty. "
+                f"Give only the course name."
+            )
+
+
+            completion = client.chat.completions.create(
+            model="groq/compound",
+            messages=[{"role": "user", "content": prompt}],
+            stream=False
+            )
+            
+            recommended_course = completion.choices[0].message.content.strip() + " (AI Recommendation) FROM Django"
+
+            return JsonResponse({
+                        "status": "success",
+                        "preference_requested": user_pref,
+                        "department_requested": user_dept,
+                        "recommendations": [recommended_course],
+                        "year_requested": user_year,
+                        "difficulty_requested": difficulty,
+                        "prerequisite_requested": prereq
+                    })
+    
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    

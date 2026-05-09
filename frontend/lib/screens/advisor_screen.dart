@@ -46,7 +46,9 @@ class _AdvisorScreenState extends State<AdvisorScreen> {
     );
 
     try {
-      final results = await ApiService.getLogicRecommendations(query);
+      final results = _isAI
+        ? await ApiService.getAiRecommendations(query)   // AI mode → Groq
+        : await ApiService.getLogicRecommendations(query); // Logic mode → Prolog
       if (mounted) {
         Navigator.push(
           context,
