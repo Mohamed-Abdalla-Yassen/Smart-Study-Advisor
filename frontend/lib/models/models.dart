@@ -1,92 +1,127 @@
-// lib/models/student_profile.dart
+// lib/models/models.dart
 
-class StudentProfile {
-  final String name;
-  final String studentId;
-  final List<String> completedCourses;
-  final List<String> interests;
-  final String difficultyPreference; // easy | medium | hard
-  final int availableHoursPerWeek;
+// ── Student Query ─────────────────────────────────────────────
+// Matches exactly the GET params Django expects:
+// difficulty, prereq, pref, year, dept
+class StudentQuery {
+  final String dept;
+  final String pref;
+  final String difficulty;
+  final String prereq; // a previously known course name, or 'nan'
+  final int year;
 
-  const StudentProfile({
-    required this.name,
-    required this.studentId,
-    required this.completedCourses,
-    required this.interests,
-    required this.difficultyPreference,
-    required this.availableHoursPerWeek,
+  const StudentQuery({
+    required this.dept,
+    required this.pref,
+    required this.difficulty,
+    required this.prereq,
+    required this.year,
   });
 
+  Map<String, String> toQueryParams() => {
+        'dept': dept,
+        'pref': pref,
+        'difficulty': difficulty,
+        'prereq': prereq,
+        'year': year.toString(),
+      };
+
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'student_id': studentId,
-        'completed_courses': completedCourses,
-        'interests': interests,
-        'difficulty_preference': difficultyPreference,
-        'available_hours_per_week': availableHoursPerWeek,
+        'dept': dept,
+        'pref': pref,
+        'difficulty': difficulty,
+        'prereq': prereq,
+        'year': year.toString(),
       };
 }
 
-// lib/models/course_recommendation.dart (combined for simplicity)
-class CourseRecommendation {
-  final String courseCode;
-  final String courseName;
-  final String difficulty; // easy | medium | hard
-  final double matchScore; // 0.0 to 1.0
-  final String reason;
-  final List<String> prerequisites;
-  final String category;
+// ── Course Result ─────────────────────────────────────────────
+class CourseResult {
+  final String name;
+  const CourseResult({required this.name});
 
-  const CourseRecommendation({
-    required this.courseCode,
-    required this.courseName,
-    required this.difficulty,
-    required this.matchScore,
-    required this.reason,
-    required this.prerequisites,
-    required this.category,
-  });
-
-  factory CourseRecommendation.fromJson(Map<String, dynamic> json) {
-    return CourseRecommendation(
-      courseCode: json['course_code'] ?? '',
-      courseName: json['course_name'] ?? '',
-      difficulty: json['difficulty'] ?? 'medium',
-      matchScore: (json['match_score'] ?? 0.0).toDouble(),
-      reason: json['reason'] ?? '',
-      prerequisites: List<String>.from(json['prerequisites'] ?? []),
-      category: json['category'] ?? '',
-    );
+  static List<CourseResult> mockResults(String dept) {
+    final map = {
+      'CSE': [
+        'Artificial Intelligence',
+        'Data Structures and Algorithms',
+        'Object-Oriented Programming',
+        'Introduction to Cybersecurity',
+        'Fundamentals of Web Development',
+      ],
+      'EE': [
+        'Electrical Circuits 1',
+        'Digital Electronics',
+        'Smart Grids',
+        'Fundamentals of Digital Signal Processing',
+        'Applied Digital Signal Processing',
+      ],
+      'ME': [
+        'Fluid Mechanics',
+        'Engineering Thermodynamics',
+        'Machine Design 1',
+        'Heat and Mass Transfer 1',
+        'Introduction to Dynamics',
+      ],
+      'CE': [
+        'Structural Analysis 1',
+        'Surveying',
+        'Applied Soil Mechanics',
+        'Introduction to Bridge Engineering',
+        'Transportation Engineering 3',
+      ],
+      'Architecture': [
+        'Architectural Design 1',
+        'Urban Design',
+        'Landscape Architecture 1',
+        'Introduction to Parametric Design',
+        'History of Architecture',
+      ],
+    };
+    final list = map[dept] ?? [
+      'Mathematics 1 (Calculus)',
+      'Physics 1 (Mechanics)',
+      'Engineering Chemistry',
+      'Technical Report Writing',
+      'Engineering Economy',
+    ];
+    return list.map((n) => CourseResult(name: n)).toList();
   }
+}
 
-  // Mock data for UI testing before backend is ready
-  static List<CourseRecommendation> mockResults() => [
-        const CourseRecommendation(
-          courseCode: 'CSE-301',
-          courseName: 'Machine Learning Fundamentals',
-          difficulty: 'medium',
-          matchScore: 0.94,
-          reason: 'Strong alignment with your interest in AI and data analysis. You\'ve completed all prerequisites.',
-          prerequisites: ['CSE-201', 'MATH-202'],
-          category: 'Artificial Intelligence',
-        ),
-        const CourseRecommendation(
-          courseCode: 'CSE-315',
-          courseName: 'Distributed Systems',
-          difficulty: 'hard',
-          matchScore: 0.87,
-          reason: 'Matches your preference for system-level programming and high challenge.',
-          prerequisites: ['CSE-210', 'CSE-220'],
-          category: 'Systems',
-        ),
-        const CourseRecommendation(
-          courseCode: 'CSE-289',
-          courseName: 'Computer Vision',
-          difficulty: 'medium',
-          matchScore: 0.81,
-          reason: 'Complements your completed courses in linear algebra and programming paradigms.',
-          prerequisites: ['CSE-225', 'MATH-301'],
-          category: 'Artificial Intelligence',
-        ),
-      ];
+// ── App Constants ─────────────────────────────────────────────
+class AppConstants {
+  static const List<String> departments = [
+    'Architecture',
+    'Basic and Applied Sciences',
+    'CE',
+    'CSE',
+    'EE',
+    'Humanities',
+    'ME',
+    'PE',
+  ];
+
+  static const Map<String, String> deptLabels = {
+    'Architecture': 'Architecture',
+    'Basic and Applied Sciences': 'Basic & Applied Sciences',
+    'CE': 'Civil Engineering',
+    'CSE': 'Computer & Systems Eng.',
+    'EE': 'Electrical & Comm. Eng.',
+    'Humanities': 'Humanities',
+    'ME': 'Mechanical Engineering',
+    'PE': 'Production Engineering',
+  };
+
+  static const List<String> preferences = [
+    'AI', 'Chemistry', 'Circuits', 'Design', 'Electronics',
+    'Field Work', 'Fluids', 'Hardware', 'Hardware/Software',
+    'History', 'Management', 'Manufacturing', 'Math',
+    'Optimization', 'Physics', 'Practical', 'Programming',
+    'Research', 'Soft Skills', 'Software', 'Structures',
+    'Theory', 'Thermal',
+  ];
+
+  static const List<String> difficulties = ['Easy', 'Medium', 'Hard'];
+  static const List<int> years = [1, 2, 3, 4, 5];
 }

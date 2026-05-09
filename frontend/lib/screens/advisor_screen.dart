@@ -16,85 +16,59 @@ class AdvisorScreen extends StatefulWidget {
 }
 
 class _AdvisorScreenState extends State<AdvisorScreen> {
-  final _nameController = TextEditingController();
-  final _idController = TextEditingController();
-
-  String _difficulty = 'medium';
-  int _hoursPerWeek = 10;
+  // ── Form state ─────────────────────────────────────────────
+  String? _selectedDept;
+  String? _selectedPref;
+  String _difficulty = 'Medium';
+  int _year = 1;
+  String _prereq = 'nan'; // 'nan' means no prerequisite filter
   bool _isLoading = false;
-
-  final List<String> _interests = [];
-  final List<String> _completedCourses = [];
-  final _interestController = TextEditingController();
-  final _courseController = TextEditingController();
-
-  // Available interest options
-  static const _interestOptions = [
-    'Artificial Intelligence', 'Machine Learning', 'Web Development',
-    'Systems Programming', 'Data Science', 'Computer Vision',
-    'Networking', 'Security', 'Algorithms', 'Embedded Systems',
-  ];
 
   bool get _isAI => widget.mode == 'ai';
   Color get _accent => _isAI ? AppColors.amber : AppColors.teal;
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _idController.dispose();
-    _interestController.dispose();
-    _courseController.dispose();
-    super.dispose();
-  }
+  bool get _isFormValid => _selectedDept != null && _selectedPref != null;
 
   Future<void> _submit() async {
-    if (_nameController.text.trim().isEmpty) {
-      _showError('Please enter your name.');
-      return;
-    }
-    if (_interests.isEmpty) {
-      _showError('Add at least one interest.');
+    if (!_isFormValid) {
+      _showError('Please select a Department and an Interest.');
       return;
     }
 
     setState(() => _isLoading = true);
 
-    final profile = StudentProfile(
-      name: _nameController.text.trim(),
-      studentId: _idController.text.trim(),
-      completedCourses: _completedCourses,
-      interests: _interests,
-      difficultyPreference: _difficulty,
-      availableHoursPerWeek: _hoursPerWeek,
+    final query = StudentQuery(
+      dept: _selectedDept!,
+      pref: _selectedPref!,
+      difficulty: _difficulty,
+      prereq: _prereq,
+      year: _year,
     );
 
     try {
-      final results = _isAI
-          ? await ApiService.getAIRecommendations(profile)
-          : await ApiService.getLogicRecommendations(profile);
-
+      final results = await ApiService.getLogicRecommendations(query);
       if (mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => ResultsScreen(
-              recommendations: results,
+              results: results,
+              query: query,
               mode: widget.mode,
-              profile: profile,
             ),
           ),
         );
       }
     } catch (e) {
-      // Use mock data if backend isn't running yet (demo mode)
+      // Demo mode — backend not connected yet
       if (mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => ResultsScreen(
-              recommendations: CourseRecommendation.mockResults(),
+              results: CourseResult.mockResults(_selectedDept!),
+              query: query,
               mode: widget.mode,
-              profile: profile,
               isMock: true,
             ),
           ),
@@ -129,19 +103,13 @@ class _AdvisorScreenState extends State<AdvisorScreen> {
         ),
         title: Row(
           children: [
-            Container(
-              width: 8, height: 8,
-              decoration: BoxDecoration(color: _accent, shape: BoxShape.circle),
-            ),
+            Container(width: 8, height: 8,
+                decoration: BoxDecoration(color: _accent, shape: BoxShape.circle)),
             const SizedBox(width: 8),
             Text(
               _isAI ? 'AI Advisor' : 'Logic Advisor',
-              style: TextStyle(
-                fontFamily: 'Syne',
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: _accent,
-              ),
+              style: TextStyle(fontFamily: 'Syne', fontSize: 16,
+                  fontWeight: FontWeight.w700, color: _accent),
             ),
           ],
         ),
@@ -153,281 +121,161 @@ class _AdvisorScreenState extends State<AdvisorScreen> {
           children: [
             const SizedBox(height: 8),
 
-            // Page header
-            const Text(
-              'Build your\nProfile',
-              style: TextStyle(
-                fontFamily: 'Syne',
-                fontSize: 38,
-                fontWeight: FontWeight.w800,
-                color: AppColors.textPrimary,
-                height: 1.1,
-                letterSpacing: -1.5,
-              ),
+            // Header
+            Text('Build your\nProfile',
+              style: TextStyle(fontFamily: 'Syne', fontSize: 38,
+                  fontWeight: FontWeight.w800, color: AppColors.textPrimary,
+                  height: 1.1, letterSpacing: -1.5),
             ).animate().fadeIn().slideY(begin: 0.2),
 
             const SizedBox(height: 6),
-            const Text(
-              'The more you share, the better your recommendations.',
-              style: TextStyle(
-                  fontSize: 14, color: AppColors.textSecondary, height: 1.5),
+            const Text('Select your department, interest, difficulty and year.',
+              style: TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5),
             ).animate().fadeIn(delay: 100.ms),
 
             const SizedBox(height: 36),
 
-            // ── Section: Identity ──────────────────────────────
-            const SectionLabel('Identity'),
+            // ── Department ─────────────────────────────────────
+            const SectionLabel('Department'),
             const SizedBox(height: 12),
-            _StyledTextField(
-              controller: _nameController,
-              hint: 'Your full name',
-              icon: Icons.person_outline_rounded,
+            _DeptGrid(
+              selected: _selectedDept,
               accent: _accent,
+              onSelect: (d) => setState(() => _selectedDept = d),
             ).animate().fadeIn(delay: 150.ms),
-            const SizedBox(height: 10),
-            _StyledTextField(
-              controller: _idController,
-              hint: 'Student ID  (optional)',
-              icon: Icons.badge_outlined,
+
+            const SizedBox(height: 28),
+
+            // ── Interest / Preference ──────────────────────────
+            const SectionLabel('Your Interest'),
+            const SizedBox(height: 12),
+            _TagWrap(
+              options: AppConstants.preferences,
+              selected: _selectedPref != null ? {_selectedPref!} : {},
               accent: _accent,
+              singleSelect: true,
+              onToggle: (tag) => setState(() => _selectedPref = tag),
             ).animate().fadeIn(delay: 200.ms),
 
             const SizedBox(height: 28),
 
-            // ── Section: Interests ─────────────────────────────
-            const SectionLabel('Academic Interests'),
+            // ── Difficulty ─────────────────────────────────────
+            const SectionLabel('Difficulty'),
             const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: _interestOptions.map((opt) {
-                final selected = _interests.contains(opt);
-                return GestureDetector(
-                  onTap: () => setState(() {
-                    selected ? _interests.remove(opt) : _interests.add(opt);
-                  }),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? _accent.withOpacity(0.15)
-                          : AppColors.surfaceElevated,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color:
-                            selected ? _accent : AppColors.border,
-                        width: selected ? 1.5 : 1,
+            GlowCard(
+              glowColor: _accent,
+              padding: const EdgeInsets.all(18),
+              child: Row(
+                children: AppConstants.difficulties.map((d) {
+                  final selected = _difficulty == d;
+                  final color = d == 'Easy'
+                      ? AppColors.success
+                      : d == 'Hard'
+                          ? AppColors.error
+                          : AppColors.amber;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => _difficulty = d),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        margin: const EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          color: selected ? color.withOpacity(0.15) : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: selected ? color : AppColors.border),
+                        ),
+                        child: Text(d,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700,
+                              color: selected ? color : AppColors.textMuted),
+                        ),
                       ),
                     ),
-                    child: Text(
-                      opt,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: selected ? _accent : AppColors.textSecondary,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             ).animate().fadeIn(delay: 250.ms),
 
-            const SizedBox(height: 28),
+            const SizedBox(height: 20),
 
-            // ── Section: Completed Courses ─────────────────────
-            const SectionLabel('Completed Courses'),
+            // ── Year ───────────────────────────────────────────
+            const SectionLabel('Year of Study'),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: _StyledTextField(
-                    controller: _courseController,
-                    hint: 'e.g. CSE-201',
-                    icon: Icons.school_outlined,
-                    accent: _accent,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () {
-                    final v = _courseController.text.trim().toUpperCase();
-                    if (v.isNotEmpty && !_completedCourses.contains(v)) {
-                      setState(() {
-                        _completedCourses.add(v);
-                        _courseController.clear();
-                      });
-                    }
-                  },
-                  child: Container(
-                    width: 48,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: _accent.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: _accent.withOpacity(0.4)),
-                    ),
-                    child: Icon(Icons.add_rounded, color: _accent),
-                  ),
-                ),
-              ],
-            ).animate().fadeIn(delay: 300.ms),
-            if (_completedCourses.isNotEmpty) ...[
-              const SizedBox(height: 10),
-              Wrap(
-                spacing: 6,
-                runSpacing: 6,
-                children: _completedCourses
-                    .map((c) => ChipTag(
-                          label: c,
-                          color: _accent,
-                          onRemove: () =>
-                              setState(() => _completedCourses.remove(c)),
-                        ))
-                    .toList(),
-              ),
-            ],
-
-            const SizedBox(height: 28),
-
-            // ── Section: Preferences ───────────────────────────
-            const SectionLabel('Preferences'),
-            const SizedBox(height: 16),
-
-            // Difficulty
             GlowCard(
               glowColor: _accent,
               padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Preferred Difficulty',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    children: ['easy', 'medium', 'hard'].map((d) {
-                      final selected = _difficulty == d;
-                      final color = d == 'easy'
-                          ? AppColors.success
-                          : d == 'hard'
-                              ? AppColors.error
-                              : AppColors.amber;
-                      return Expanded(
-                        child: GestureDetector(
-                          onTap: () => setState(() => _difficulty = d),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            margin: const EdgeInsets.only(right: 8),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              color: selected
-                                  ? color.withOpacity(0.15)
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: selected
-                                    ? color
-                                    : AppColors.border,
-                              ),
-                            ),
-                            child: Text(
-                              d[0].toUpperCase() + d.substring(1),
+              child: Row(
+                children: AppConstants.years.map((y) {
+                  final selected = _year == y;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => _year = y),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        margin: const EdgeInsets.only(right: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          color: selected ? _accent.withOpacity(0.15) : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: selected ? _accent : AppColors.border),
+                        ),
+                        child: Column(
+                          children: [
+                            Text('Y$y',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: selected
-                                    ? color
-                                    : AppColors.textMuted,
-                              ),
+                              style: TextStyle(fontSize: 14,
+                                  fontWeight: FontWeight.w800,
+                                  color: selected ? _accent : AppColors.textMuted),
                             ),
-                          ),
+                          ],
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
+            ).animate().fadeIn(delay: 300.ms),
+
+            const SizedBox(height: 20),
+
+            // ── Prerequisite (optional) ────────────────────────
+            const SectionLabel('Known Course (optional)'),
+            const SizedBox(height: 8),
+            Text('Enter a course you already know — Prolog uses it to filter results.',
+              style: const TextStyle(fontSize: 12, color: AppColors.textMuted, height: 1.5),
+            ),
+            const SizedBox(height: 10),
+            _PrereqField(
+              accent: _accent,
+              value: _prereq == 'nan' ? '' : _prereq,
+              onChanged: (v) => setState(() => _prereq = v.trim().isEmpty ? 'nan' : v.trim()),
             ).animate().fadeIn(delay: 350.ms),
-
-            const SizedBox(height: 12),
-
-            // Hours per week slider
-            GlowCard(
-              glowColor: _accent,
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Hours per week',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                      Text(
-                        '$_hoursPerWeek hrs',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                          color: _accent,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SliderTheme(
-                    data: SliderThemeData(
-                      activeTrackColor: _accent,
-                      inactiveTrackColor: AppColors.border,
-                      thumbColor: _accent,
-                      overlayColor: _accent.withOpacity(0.15),
-                      thumbShape:
-                          const RoundSliderThumbShape(enabledThumbRadius: 8),
-                      trackHeight: 3,
-                    ),
-                    child: Slider(
-                      value: _hoursPerWeek.toDouble(),
-                      min: 5,
-                      max: 40,
-                      divisions: 7,
-                      onChanged: (v) =>
-                          setState(() => _hoursPerWeek = v.round()),
-                    ),
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('5 hrs', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                      Text('40 hrs', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
-                    ],
-                  ),
-                ],
-              ),
-            ).animate().fadeIn(delay: 400.ms),
 
             const SizedBox(height: 40),
 
-            // Submit
+            // ── Summary chip row ───────────────────────────────
+            if (_isFormValid) ...[
+              _SummaryRow(
+                dept: _selectedDept!,
+                pref: _selectedPref!,
+                difficulty: _difficulty,
+                year: _year,
+                accent: _accent,
+              ).animate().fadeIn(),
+              const SizedBox(height: 20),
+            ],
+
+            // ── Submit ─────────────────────────────────────────
             NeonButton(
-              label: _isAI ? 'Ask AI Advisor' : 'Run Logic Engine',
-              icon: _isAI ? Icons.auto_awesome_rounded : Icons.account_tree_rounded,
+              label: 'Get Recommendations',
+              icon: Icons.auto_awesome_rounded,
               fullWidth: true,
               color: _accent,
               isLoading: _isLoading,
               onPressed: _isLoading ? null : _submit,
-            ).animate().fadeIn(delay: 500.ms),
+            ).animate().fadeIn(delay: 400.ms),
 
             const SizedBox(height: 48),
           ],
@@ -437,49 +285,181 @@ class _AdvisorScreenState extends State<AdvisorScreen> {
   }
 }
 
-// ── Styled text field ─────────────────────────────────────────
-class _StyledTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hint;
-  final IconData icon;
+// ── Department grid ───────────────────────────────────────────
+class _DeptGrid extends StatelessWidget {
+  final String? selected;
   final Color accent;
+  final void Function(String) onSelect;
 
-  const _StyledTextField({
-    required this.controller,
-    required this.hint,
-    required this.icon,
+  const _DeptGrid({required this.selected, required this.accent, required this.onSelect});
+
+  static const _icons = {
+    'Architecture': Icons.apartment_rounded,
+    'Basic and Applied Sciences': Icons.science_rounded,
+    'CE': Icons.foundation_rounded,
+    'CSE': Icons.computer_rounded,
+    'EE': Icons.bolt_rounded,
+    'Humanities': Icons.menu_book_rounded,
+    'ME': Icons.settings_rounded,
+    'PE': Icons.precision_manufacturing_rounded,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 2.8,
+      children: AppConstants.departments.map((dept) {
+        final isSelected = selected == dept;
+        return GestureDetector(
+          onTap: () => onSelect(dept),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              color: isSelected ? accent.withOpacity(0.12) : AppColors.surfaceElevated,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isSelected ? accent : AppColors.border,
+                width: isSelected ? 1.5 : 1,
+              ),
+              boxShadow: isSelected
+                  ? [BoxShadow(color: accent.withOpacity(0.2), blurRadius: 12)]
+                  : [],
+            ),
+            child: Row(
+              children: [
+                Icon(_icons[dept] ?? Icons.school_rounded,
+                    color: isSelected ? accent : AppColors.textMuted, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    AppConstants.deptLabels[dept] ?? dept,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: isSelected ? accent : AppColors.textSecondary,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+// ── Tag wrap (interests) ──────────────────────────────────────
+class _TagWrap extends StatelessWidget {
+  final List<String> options;
+  final Set<String> selected;
+  final Color accent;
+  final bool singleSelect;
+  final void Function(String) onToggle;
+
+  const _TagWrap({
+    required this.options,
+    required this.selected,
     required this.accent,
+    required this.onToggle,
+    this.singleSelect = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: options.map((opt) {
+        final isSelected = selected.contains(opt);
+        return GestureDetector(
+          onTap: () => onToggle(opt),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected ? accent.withOpacity(0.15) : AppColors.surfaceElevated,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: isSelected ? accent : AppColors.border,
+                width: isSelected ? 1.5 : 1,
+              ),
+            ),
+            child: Text(opt,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: isSelected ? accent : AppColors.textSecondary,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+// ── Prereq field ──────────────────────────────────────────────
+class _PrereqField extends StatelessWidget {
+  final Color accent;
+  final String value;
+  final void Function(String) onChanged;
+
+  const _PrereqField({required this.accent, required this.value, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
     return TextField(
-      controller: controller,
-      style: const TextStyle(
-        color: AppColors.textPrimary,
-        fontSize: 15,
-      ),
+      onChanged: onChanged,
+      style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
       decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 14),
-        prefixIcon: Icon(icon, color: accent.withOpacity(0.6), size: 18),
+        hintText: 'e.g. Mathematics 1 (Calculus)',
+        hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+        prefixIcon: Icon(Icons.school_outlined, color: accent.withOpacity(0.6), size: 18),
         filled: true,
         fillColor: AppColors.surfaceElevated,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: accent, width: 1.5),
-        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: AppColors.border)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: AppColors.border)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: accent, width: 1.5)),
       ),
+    );
+  }
+}
+
+// ── Summary row ───────────────────────────────────────────────
+class _SummaryRow extends StatelessWidget {
+  final String dept, pref, difficulty;
+  final int year;
+  final Color accent;
+
+  const _SummaryRow({
+    required this.dept, required this.pref,
+    required this.difficulty, required this.year, required this.accent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 6,
+      runSpacing: 6,
+      children: [
+        ChipTag(label: dept, color: accent),
+        ChipTag(label: pref, color: accent),
+        ChipTag(label: difficulty, color: accent),
+        ChipTag(label: 'Year $year', color: accent),
+      ],
     );
   }
 }
