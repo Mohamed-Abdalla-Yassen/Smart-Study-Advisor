@@ -24,7 +24,7 @@
 
 | Home Screen | Advisor Form | Results |
 |:-----------:|:------------:|:-------:|
-| ![Home](assets/screenshots/home.png) | ![Form](assets/screenshots/form.png) | ![Results](assets/screenshots/results.png) |
+| ![Home](assets/screenshots/home.png) | ![Form](assets/screenshots/form.png) | ![Results](assets/screenshots/result.png) |
 
 <!-- To add screenshots:
   1. Take screenshots while the app is running
@@ -33,20 +33,12 @@
 
 ---
 
-## 🎬 Demo Videos
+## 🎬 Demo Video
 
-> _Add your demo video links here_
 
-### Part 1 — AI Advisor (Groq)
+### AI(Groq)-Logic(Prolog) Advisor 
 [![AI Demo](https://img.shields.io/badge/▶_Watch_Demo-FF0000?style=for-the-badge&logo=youtube)](https://youtube.com/your-link-here)
 
-<!-- Or embed directly if hosted:
-![AI Demo](assets/videos/ai_demo.gif) -->
-
-### Part 2 — Logic Advisor (Prolog)
-[![Logic Demo](https://img.shields.io/badge/▶_Watch_Demo-FF0000?style=for-the-badge&logo=youtube)](https://youtube.com/your-link-here)
-
-<!-- Replace the YouTube links above with your actual video URLs -->
 
 ---
 
@@ -252,7 +244,7 @@ The hybrid approach gives you the **reliability of logic** with the **flexibilit
 
 | Role | Responsibility |
 |------|---------------|
-| 🎨 **Frontend Engineer** | Flutter app — UI/UX, screens, API integration |
+| 🎨 **Frontend Engineer** | Flutter app, screens, API integration |
 | ⚙️ **Backend Engineer** | Django REST API — views, paradigm demonstrations |
 | 🧠 **Logic Programmer** | Prolog inference engine — rules, facts, queries |
 | 🤖 **AI Integrator** | Groq API — prompt engineering, response handling |
