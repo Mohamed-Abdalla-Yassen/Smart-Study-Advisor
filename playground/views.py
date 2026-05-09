@@ -11,6 +11,7 @@ from django.conf import settings
 
 
 from groq import Groq
+from dotenv import load_dotenv
 
 # Initialize Prolog once when the server starts
 prolog = Prolog()
@@ -110,7 +111,11 @@ def get_recommendations_post(request):
         return JsonResponse({"status": "error", "message": "Only POST method allowed"}, status=405)
     
 
-client = Groq(api_key="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")
+load_dotenv()
+my_api_key = os.getenv("GROQ_API_KEY")
+client = Groq(api_key=my_api_key)
+
+# print("Groq API Key loaded:", "Yes" if my_api_key else "No")
 
 @csrf_exempt
 def get_AI_recommendations(request):
