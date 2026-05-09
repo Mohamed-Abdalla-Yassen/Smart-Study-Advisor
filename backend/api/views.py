@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 import json
 from .services import get_prolog_recommendation
 from .Services.advisor_prolog import PrologAdvisorService
@@ -27,32 +28,16 @@ def recommend_course(request):
 @csrf_exempt
 def recommend_a(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        student_name = data.get('student_name')
-        interest = data.get('interest')
-
-        recommendations = get_prolog_recommendation(student_name, interest , False)
-
-        return JsonResponse({
-            "status": "success",
+        try:
+            data = json.loads(request.body)
+            advisor = GeminiAdvisorService()
+            recommendations = advisor.get_recommendations(data)
+            return JsonResponse({
+                "status": "success",
+                "source": "gemini-2.0-flash",
             "recommendations": recommendations
         })
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
-
-
-# @csrf_exempt
-# def recommend_course_view(request):
-#     if request.method == 'POST':
-#         # Parse Input
-#         data = json.loads(request.body)
-#
-#         # Dependency Injection (Manually here, or via a factory)
-#         # You can easily swap this with GeminiAdvisorService()
-#         advisor = PrologAdvisorService()
-#
-#         recommendations = advisor.get_recommendations(data)
-#
-#         return JsonResponse({
-#             "status": "success",
-#             "data": recommendations
-#         })
+    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)   
