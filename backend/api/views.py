@@ -15,16 +15,20 @@ def hello(request):
 @csrf_exempt
 def recommend_course(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        student_name = data.get('student_name')
-        interest = data.get('interest')
+        try:
+            data = json.loads(request.body)
 
-        recommendations = get_prolog_recommendation(student_name, interest , True)
+            advisor = PrologAdvisorService()
+            recommendations = advisor.get_recommendations(data)
 
-        return JsonResponse({
-            "status": "success",
-            "recommendations": recommendations
-        })
+            return JsonResponse({
+                "status": "success",
+                "source": "prolog-engine",
+                "recommendations": recommendations
+            })
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
 @csrf_exempt
 def recommend_a(request):
     if request.method == 'POST':

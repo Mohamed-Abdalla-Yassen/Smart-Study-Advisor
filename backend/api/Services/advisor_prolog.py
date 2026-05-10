@@ -1,27 +1,46 @@
 from .base import BaseAdvisorService
 from pyswip import Prolog
+import os
 
 class PrologAdvisorService(BaseAdvisorService):
     def __init__(self):
         self.prolog = Prolog()
-        self.prolog.consult("inference_engine.pl")
+        try:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            api_dir = os.path.dirname(current_dir)
+            backend_dir = os.path.dirname(api_dir)
+            root_dir = os.path.dirname(backend_dir)
+
+            prolog_file = os.path.join(root_dir, "advice.pl")
+
+            if os.path.exists(prolog_file):
+                self.prolog.consult(prolog_file.replace('\\', '/'))
+                print(f"[DEBUG] Successfully consulted: {prolog_file}")
+            else:
+                print(f"[ERROR] Prolog file not found at {prolog_file}")
+        except Exception as e:
+            print(f"[ERROR] Initialization error: {e}")
 
     def get_recommendations(self, data: dict) -> list:
-        # dept = data.get('department')
-        # year = data.get('year_of_study')
-        # pref = data.get('preferences')
-        # passed = data.get('passed_courses', [])
+        student_name = data.get('student_name').lower()
 
+        try:
+            query = f"recommend({student_name}, Course)"
 
-        # Logic Paradigm: Single query with all arguments Approach A (mentioned in course.py)
-        # No facts are saved in Prolog memory; everything is in this string
-        # query = f"recommend({year}, '{dept}', '{pref}', {passed_prolog_format}, Course)"
+            results = self.prolog.query(query)
 
-        # results = list(self.prolog.query(query))
+            # λres.str(res["Course"])
+            # map the transformation function over the raw Prolog result dictionaries from dictionary objects to clean course name strings
+            # list
+            recommendations = list(map(lambda res: str(res["Course"]), results))
 
-        # return [str(res["Course"]) for res in results]
-        #  Dynamic Fact Injection
-        # Use self.prolog.assertz() to 'upload' Dept, Year, and Passed Courses (can work in two approaches) or passing only student data ( Approach B)
-        # Call a simple query: recommend_for_student(Course)
-        # This follows the 'Memory' approach rather than 'Function' approach
-        pass
+            # λx.x!="None"
+            # filter the list of course strings using a predicate to remove empty or invalid entries
+            # list
+            final_list = list(filter(lambda x: x != "None", recommendations))
+
+            return final_list if final_list else ["No recommendations found."]
+
+        except Exception as e:
+            print(f"[ERROR] Prolog query failed: {e}")
+            return [f"Error in logic engine: {e}"]
