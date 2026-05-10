@@ -477,6 +477,9 @@ prerequisite('Object-Oriented Programming', 'Computer Programming (C/C++)').
 prerequisite('Artificial Intelligence', 'Data Structures and Algorithms').
 prerequisite('Advanced Reinforced Concrete Design', 'Applied Reinforced Concrete Design 1').
 prerequisite('Electrical Circuits 2', 'Electrical Circuits 1').
+:- dynamic student/4.
+:- dynamic completed/2.
+
 
 % --- 5. TEST DATA ---
 % student(Name, Dept, Year, [Interests]).

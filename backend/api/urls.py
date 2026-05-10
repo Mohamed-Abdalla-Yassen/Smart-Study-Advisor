@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('hello/', hello),
     path('recommend/',recommend_course),
+
     path('recommend/ai/', views.recommend_a, name='recommend_a'),
 
 ]
