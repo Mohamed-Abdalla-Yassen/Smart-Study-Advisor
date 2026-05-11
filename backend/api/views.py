@@ -28,7 +28,7 @@ def recommend_course(request):
             })
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
-
+        
 @csrf_exempt
 def recommend_a(request):
     if request.method == 'POST':
@@ -38,8 +38,9 @@ def recommend_a(request):
             recommendations = advisor.get_recommendations(data)
             return JsonResponse({
                 "status": "success",
-                "source": "gemini-2.0-flash",
-            "recommendations": recommendations
+                "source": "gemini-2.5-flash",
+                "total_found": len(recommendations),
+            "data": recommendations
         })
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)

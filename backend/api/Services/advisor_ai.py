@@ -1,3 +1,5 @@
+import json
+
 from .base import BaseAdvisorService
 import os
 from google import genai
@@ -40,63 +42,113 @@ class GeminiAdvisorService(BaseAdvisorService):
 
                 print(f"[DEBUG] Prolog file loaded, length: {len(content)} chars")
                 
-                # Regex to find: course('Course Name', 'Department', ...
-                pattern = r"course\('([^']+)',\s*'([^']+)'"
+                #dormat : course name department , difficulty , year
+                pattern = r"course\(\s*'([^']+)'\s*,\s*'([^']+)'\s*,\s*'([^']+)'\s*,\s*(\d+)\s*\)"
                 matches = re.findall(pattern, content)
                 print(f"[DEBUG] Found {len(matches)} course matches in Prolog file")
 
-                for course_name, dept in matches:
+                for course_name, dept, difficulty, year in matches:
                     if dept.lower() == department.lower():
-                        courses.append(course_name)
+                        courses.append(f"'{course_name}' (Year: {year}, Difficulty: {difficulty})")
 
                 print(f"[DEBUG] Filtered to {len(courses)} courses for department: {department}")
                 
         except Exception as e:
             print(f"[ERROR] Error reading Prolog file: {type(e).__name__}: {e}")
-
-            import traceback
-            traceback.print_exc()
-
-        return ", ".join(courses)
-
+        
+        return " | ".join(courses)
 
     def get_recommendations(self, data: dict) -> list:
         try:
-            student_name = data.get("student_name", "Student")
-            interest = data.get('interest', 'AI')
-            department = data.get('department', 'CSE')
+            department = data.get('dept', 'CSE')
+            prefs = data.get('prefs', [])
+            difficulties = data.get('difficulties', [])
+            years = data.get('years', [])
+            completed_courses = data.get('prereqs', [])
 
-            print(f"[DEBUG] Processing recommendation for {student_name}, interest: {interest}, dept: {department}")
+            #convert lists to readable strings
 
+            prefs_str = ", ".join(prefs) if prefs else "Any"
+            difficulties_str = ", ".join(difficulties) if difficulties else "Any"
+            years_str = ", ".join(str(y) for y in years) if years else "Any"
+            completed_str = ", ".join(completed_courses) if completed_courses else "None"
+
+            print(f"[DEBUG] AI Request - Dept: {department}, Prefs: {prefs_str}, Diff: {difficulties_str}")
             valid_courses = self._get_courses_for_department(department)
 
             if not valid_courses:
                 print(f"[WARNING] No courses found for department: {department}")
                 return ["No courses available for this department"]
 
-            prompt = (
-           f"You are a genius Study Advisor. The student {student_name} is in the {department} department "
-            f"and is interested in {interest}.\n\n"
-            f"Here is the STRICT list of available courses for the {department} department:\n"
-            f"[{valid_courses}]\n\n"
-            "RULES:\n"
-            "1. Suggest exactly 1 course that suit their interests.\n"
-            "2. You MUST ONLY choose courses from the strict list provided above. Do NOT invent new courses.\n"
-            "3. Provide ONLY a comma-separated list of the course names. Nothing else."
-            )
+            prompt = f"""You are a genius AI Study Advisor. Evaluate courses based on this student profile:
+--- STUDENT PROFILE ---
+Department: {department}
+Preferred Subjects: {prefs_str}
+Allowed Difficulties: {difficulties_str}
+Allowed Years of Study: {years_str}
+Completed Courses (DO NOT RECOMMEND THESE): {completed_str}
+
+--- AVAILABLE COURSES (WITH STATS) ---
+[{valid_courses}]
+
+--- RULES & TIERS ---
+1. Pick exactly 1 course from the Available Courses list that best fits the profile.
+2. DO NOT pick any course listed in Completed Courses.
+3. Evaluate and classify the best course using these strict Tiers (Tier 1 is best):
+   - Tier 1 (100.0%): Course Year is in Allowed Years AND Difficulty is in Allowed Difficulties AND Preference is in Preferred Subjects.
+   - Tier 2 (70.0%): Course Year is in Allowed Years AND Difficulty is in Allowed Difficulties (Preferences don't match).
+   - Tier 3 (50.0%): Course Year is in Allowed Years (Neither Difficulty nor Preferences match).
+   - Tier 4 (20.0%): Course Year is NOT in Allowed Years (Future course).
+4. You MUST return your answer as a raw JSON array containing exactly one object. 
+5. Do NOT use markdown formatting. Just output the raw JSON text.
+6. The JSON object MUST strictly follow this schema, filling in the correct calculated Tier and Percentage:
+
+[
+  {{
+    "course_name": "<Exact Course Name>",
+    "match_percentage": <100.0, 70.0, 50.0, or 20.0 based on the matched Tier>,
+    "match_tier": "<Tier 1 (100%), Tier 2 (70%), Tier 3 (50%), or Tier 4 (20%)>",
+    "details": {{
+      "course_name": "<Exact Course Name>",
+      "difficulty": "<Course Difficulty>",
+      "prerequisite": "NaN",
+      "preference": "<The matched preference, or 'General' if Tier 2/3/4>",
+      "year_of_study": <Course Year as an integer>,
+      "department": "{department}"
+    }}
+  }}
+]
+"""
             print(f"[DEBUG] Sending prompt to Gemini API...")    
             response = self.client.models.generate_content(
                 model="models/gemini-2.5-flash",
                 contents=[{"text": prompt}],
             )
+
             print(f"[DEBUG] Received response from Gemini API")
+
+            clean_json = response.text.strip()
+            if clean_json.startswith("```json"):
+                clean_json = clean_json[7:]
+            if clean_json.endswith("```"):
+                clean_json = clean_json[:-3]
+            clean_json = clean_json.strip()
+
             print(f"[DEBUG] Raw response content: {response.text}")
-            recommendations_list = [item.strip() for item in response.text.split(',')]
+            recommendations_list = json.loads(clean_json)
 
             return recommendations_list
         except Exception as e:
             print(f"[ERROR] AI error: {type(e).__name__}: {e}")
             import traceback
             traceback.print_exc()
-            return ["error fetching AI recommendations"]
-
+            # Return an array of objects matching the frontend schema even on error to prevent crashes
+            return [{
+                "course_name": "Error fetching AI recommendations",
+                "match_percentage": 0.0,
+                "match_tier": "Error",
+                "details": {
+                    "course_name": "Error", "difficulty": "Unknown", "prerequisite": "NaN", 
+                    "preference": "Unknown", "year_of_study": 0, "department": department
+                }
+            }]
