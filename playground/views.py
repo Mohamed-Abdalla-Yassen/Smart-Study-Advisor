@@ -1,5 +1,6 @@
 import json
 import os
+import math
 import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -91,138 +92,49 @@ def _query_prolog_by_dept(dept: str) -> list[str]:
             names.append(name)
     return names
 
-
-# ─────────────────────────────────────────────
-#  MAIN TIERED ENDPOINT
-# ─────────────────────────────────────────────
-
-@csrf_exempt
-def get_recommendations_tiered(request):
+# ── Helper: recursively replace float NaN → None ─────────────────────────────
+def _sanitize(obj):
+    if isinstance(obj, float) and math.isnan(obj):
+        return None
+    if isinstance(obj, dict):
+        return {k: _sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_sanitize(i) for i in obj]
+    return obj
+ 
+ 
+# ── Helper: parse a numbered / bulleted list from the model's reply ───────────
+def _parse_course_list(text: str) -> list[str]:
     """
-    POST body:
-    {
-        "dept":         "CSE",
-        "difficulties": ["Easy", "Medium"],
-        "prefs":        ["Programming", "AI", "Software"],
-        "years":        ["2", "3", "4"],
-        "prereqs":      ["Mathematics 1 (Calculus)", "Physics 1 (Mechanics)"]
-    }
-
-    Algorithm
-    ─────────
-    1. Ask Prolog for every course whose Department matches.
-    2. Cross-reference each result with the Excel KB.
-    3. Score each course on the 4 optional parameters
-       (difficulty, preference, year, prerequisite).
-       Department is the mandatory baseline — it is already enforced by
-       the Prolog query and is not counted in the percentage.
-    4. Sort descending by percentage; deduplicate.
-    5. Attach tier label and full course details; return JSON.
-
-    Matching rules per parameter
-    ────────────────────────────
-    • difficulty  – course difficulty is in user's selected difficulties list
-    • preference  – course preference tag is in user's interests list
-    • year        – course year_of_study matches one of the user's years
-    • prerequisite– course prereq keyword appears inside a user prereq
-                    string, OR the course has no prerequisite
+    Accepts lines like:
+        1. Artificial Intelligence
+        2) Object-Oriented Programming
+        - Data Structures and Algorithms
+        * Computer Networks
+        Algorithms          ← plain line, no marker
+    Returns a clean list of up to 10 non-empty course names.
     """
-    if request.method != 'POST':
-        return JsonResponse({"error": "POST only"}, status=405)
-
-    try:
-        data       = json.loads(request.body)
-        dept       = data.get('dept', '').strip()
-        prefs      = data.get('prefs', [])
-        diffs      = data.get('difficulties', [])
-        years      = [str(y) for y in data.get('years', [])]
-        prereqs    = data.get('prereqs', [])
-
-        if not dept:
-            return JsonResponse({"error": "dept is required"}, status=400)
-
-        # ── Step 1: Prolog fetches all courses for this department ──────
-        candidate_names = _query_prolog_by_dept(dept)
-
-        if not candidate_names:
-            return JsonResponse({
-                "status": "success",
-                "dept": dept,
-                "total_found": 0,
-                "tiers": {"tier1": [], "tier2": [], "tier3": [], "tier4": []},
-                "all_sorted": []
-            })
-
-        # ── Step 2 & 3: Score every candidate against the Excel KB ──────
-        results = []
-        seen    = set()
-
-        for course_name in candidate_names:
-            if course_name in seen:
-                continue
-            seen.add(course_name)
-
-            kb_rows = df_kb[df_kb['course_name'] == course_name]
-            if kb_rows.empty:
-                continue
-
-            row = kb_rows.iloc[0]
-
-            diff_ok = row['difficulty'] in diffs
-            pref_ok = row['preference'] in prefs
-            year_ok = str(int(row['year_of_study'])) in years
-            pre_ok  = _prereq_match(row['prerequisite'], prereqs)
-
-            matched = sum([diff_ok, pref_ok, year_ok, pre_ok])
-
-            result = _build_course_result(course_name, matched, 4, row)
-            result["param_breakdown"] = {
-                "difficulty_match":   diff_ok,
-                "preference_match":   pref_ok,
-                "year_match":         year_ok,
-                "prerequisite_match": pre_ok,
-            }
-            results.append(result)
-
-        # ── Step 4: Sort descending by match percentage ─────────────────
-        results.sort(key=lambda x: x['match_percentage'], reverse=True)
-
-        # ── Step 5: Group into tiers ────────────────────────────────────
-        tiers = {"tier1": [], "tier2": [], "tier3": [], "tier4": []}
-        for r in results:
-            pct = r['match_percentage']
-            if pct == 100:
-                tiers["tier1"].append(r)
-            elif pct >= 75:
-                tiers["tier2"].append(r)
-            elif pct >= 50:
-                tiers["tier3"].append(r)
-            else:
-                tiers["tier4"].append(r)
-
-        return JsonResponse({
-            "status":      "success",
-            "dept":        dept,
-            "total_found": len(results),
-            "tier_counts": {
-                "tier1_perfect":  len(tiers["tier1"]),
-                "tier2_strong":   len(tiers["tier2"]),
-                "tier3_partial":  len(tiers["tier3"]),
-                "tier4_low":      len(tiers["tier4"]),
-            },
-            "tiers":       tiers,
-            "all_sorted":  results,
-        })
-
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    import re
+    courses = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        # Strip leading markers: "1.", "1)", "-", "*", "•"
+        line = re.sub(r'^[\d]+[.)]\s*', '', line)
+        line = re.sub(r'^[-*•]\s*', '', line)
+        line = line.strip()
+        if line:
+            courses.append(line)
+        if len(courses) == 10:
+            break
+    return courses
 
 
-# ─────────
+
 # ENDPOINTS
-# ─────────
 
-@csrf_exempt
+@csrf_exempt #! to be removed
 def get_recommendations_post(request):
     if request.method == 'POST':
         try:
@@ -313,34 +225,96 @@ client     = Groq(api_key=my_api_key)
 @csrf_exempt
 def get_AI_recommendations(request):
     try:
-        if request.method == 'POST':
-            data       = json.loads(request.body)
-            difficulty = data.get('difficulty', 'Medium')
-            prereq     = data.get('prereq', 'nan')
-            user_pref  = data.get('pref', 'Programming')
-            user_year  = data.get('year', '4')
-            user_dept  = data.get('dept', 'CSE')
-
-            prompt = (
-                f"As an advisor, recommend a course for a Year {user_year} {user_dept} student "
-                f"who likes {user_pref} and wants {difficulty} difficulty. "
-                f"Give only the course name."
+        if request.method != 'POST':
+            return JsonResponse(
+                {"status": "error", "message": "Only POST allowed"}, status=405
             )
-            completion = client.chat.completions.create(
-                model="groq/compound",
-                messages=[{"role": "user", "content": prompt}],
-                stream=False
+ 
+        body = json.loads(request.body)
+ 
+        # ── Accept both single-value (legacy) and multi-value (new) fields ──
+        difficulties = body.get('difficulties') or [body.get('difficulty', 'Medium')]
+        prefs        = body.get('prefs')        or [body.get('pref', 'Programming')]
+        years        = body.get('years')        or [body.get('year', '4')]
+        prereqs      = body.get('prereqs')      or [body.get('prereq', 'None')]
+        dept         = body.get('dept', 'CSE')
+ 
+        # Human-readable summaries for the prompt
+        diff_str   = ', '.join(difficulties)
+        pref_str   = ', '.join(prefs)
+        year_str   = ', '.join(str(y) for y in years)
+        prereq_str = ', '.join(prereqs) if prereqs else 'None'
+ 
+        prompt = (
+            f"You are a university course advisor.\n"
+            f"Recommend exactly 10 courses for a Year {year_str} {dept} student "
+            f"with the following profile:\n"
+            f"  - Interests: {pref_str}\n"
+            f"  - Preferred difficulty: {diff_str}\n"
+            f"  - Courses already completed: {prereq_str}\n\n"
+            f"Rules:\n"
+            f"  1. Return ONLY a numbered list of 10 course names, one per line.\n"
+            f"  2. Do NOT include descriptions, explanations, or extra text.\n"
+            f"  3. Each line must be just the course name, e.g.:\n"
+            f"     1. Artificial Intelligence\n"
+            f"     2. Object-Oriented Programming\n"
+            f"  4. Courses should be appropriate for the department and year.\n"
+            f"  5. Avoid repeating courses the student already completed.\n"
+        )
+ 
+        completion = client.chat.completions.create(
+            model="groq/compound",
+            messages=[{"role": "user", "content": prompt}],
+            stream=False,
+        )
+ 
+        raw_reply = completion.choices[0].message.content.strip()
+        course_names = _parse_course_list(raw_reply)
+ 
+        # ── Build response in the same shape as the logic endpoint ───────────
+        # { status, total_found, data: [ { course_name, match_percentage,
+        #   match_tier, details: { difficulty, prerequisite, preference,
+        #                          year_of_study, department } } ] }
+        #
+        # For AI results we don't have a real match score, so we assign
+        # a rank-based percentage: rank 1 → 100%, rank 2 → 90%, … rank 10 → 10%
+        data_list = []
+        for i, name in enumerate(course_names):
+            rank        = i + 1
+            match_pct   = round(100 - (rank - 1) * 10, 1)   # 100, 90, 80 … 10
+            tier        = (
+                "Tier 1 (100%)" if match_pct == 100 else
+                "Tier 2 (75%)"  if match_pct >= 70  else
+                "Tier 3 (50%)"  if match_pct >= 50  else
+                "Low Match"
             )
-            recommended_course = completion.choices[0].message.content.strip() + " (AI Recommendation) FROM Django"
-
-            return JsonResponse({
-                "status":                 "success",
-                "preference_requested":   user_pref,
-                "department_requested":   user_dept,
-                "recommendations":        [recommended_course],
-                "year_requested":         user_year,
-                "difficulty_requested":   difficulty,
-                "prerequisite_requested": prereq
+            data_list.append({
+                "course_name":      name,
+                "match_percentage": match_pct,
+                "match_tier":       tier,
+                "details": {
+                    "course_name":  name,
+                    "difficulty":   difficulties[0] if difficulties else "Medium",
+                    "prerequisite": None,          # AI doesn't know the exact prereq
+                    "preference":   prefs[0] if prefs else "Programming",
+                    "year_of_study": int(years[0]) if years else 4,
+                    "department":   dept,
+                },
             })
+ 
+        response_body = _sanitize({
+            "status":      "success",
+            "total_found": len(data_list),
+            "data":        data_list,
+            # Legacy fields kept for any old consumers
+            "preference_requested":   pref_str,
+            "department_requested":   dept,
+            "year_requested":         year_str,
+            "difficulty_requested":   diff_str,
+            "prerequisite_requested": prereq_str,
+        })
+ 
+        return JsonResponse(response_body)
+ 
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=500)
