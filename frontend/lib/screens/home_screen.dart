@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(width: 8),
                         const Text(
-                          'CSE-225 · Lab 3',
+                          'Version 1.0',
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
