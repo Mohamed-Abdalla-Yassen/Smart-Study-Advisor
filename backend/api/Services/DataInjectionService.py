@@ -5,22 +5,22 @@ class DataInjectionService:
         self.prolog = prolog_instance
 
     def inject_student_data(self, data: dict):
-        name = data.get('student_name', 'guest').lower()
         dept = data.get('department', 'CSE')
         year = data.get('year', 1)
         interests = data.get('interests', [])
         passed_courses = data.get('passed_courses', [])
+        diffs = data.get('difficulties', ['Easy', 'Medium', 'Hard'])
 
         try:
             # λ interests . str(interests).replace('"', "'")
             # Lambda transformation to convert Python double-quoted strings into Prolog-compatible single-quoted atoms within a list.
             format_list = lambda items: str(items).replace('"', "'")
             interests_prolog = format_list(interests)
-
-            student_fact = f"student({name}, '{dept}', {year}, {interests_prolog})"
+            diffs_prolog = format_list(diffs)
+            name = 'non'
+            student_fact = f"student({name}, '{dept}', {year}, {interests_prolog}, {diffs_prolog})"
             self.prolog.assertz(student_fact)
 
-            # Cam use Map here
             for course in passed_courses:
                 self.prolog.assertz(f"completed({name}, '{course}')")
 

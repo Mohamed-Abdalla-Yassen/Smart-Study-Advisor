@@ -23,8 +23,8 @@ def recommend_course(request):
 
             return JsonResponse({
                 "status": "success",
-                "source": "prolog-engine",
-                "recommendations": recommendations
+                "total_found": len(recommendations),
+                "data": recommendations
             })
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
