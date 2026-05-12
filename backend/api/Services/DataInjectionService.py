@@ -7,6 +7,8 @@ class DataInjectionService:
     def inject_student_data(self, data: dict):
         dept = data.get('dept', 'CSE')
         years = data.get('years', [1])
+        years = [int(y) for y in years]
+
         interests = data.get('prefs', [])
         passed_courses = data.get('prereqs', [])
         diffs = data.get('difficulties', ['Easy', 'Medium', 'Hard'])
