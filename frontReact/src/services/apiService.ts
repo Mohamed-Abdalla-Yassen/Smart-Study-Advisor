@@ -2,10 +2,10 @@
 // lib/services/apiService.ts
 import { StudentForm, CourseResult, CourseMapper, studentFormToJson } from '../models/models';
 
-const BASE_URL = 'http://192.168.1.28:8000/playground'; // your PC's IP
-// const BASE_URL = 'http://127.0.0.1:8000/playground';
-// const BASE_URL = 'http://10.0.2.2:8000/playground'; // Android emulator
-// const BASE_URL = 'http://YOUR_PC_IP:8000/playground'; // Real device
+// const BASE_URL = 'http://192.168.1.28:8000/api'; // your PC's IP
+const BASE_URL = 'http://127.0.0.1:8000/api';
+// const BASE_URL = 'http://10.0.2.2:8000/api'; // Android emulator
+// const BASE_URL = 'http://YOUR_PC_IP:8000/api'; // Real device
 
 const TIMEOUT_MS = 15000;
 
@@ -121,7 +121,7 @@ const parseResponse = async (response: Response): Promise<CourseResult[]> => {
 export const ApiService = {
   // ── Logic Recommendations ─────────────────────────────────────
   getLogicRecommendations: async (form: StudentForm): Promise<CourseResult[]> => {
-    const response = await fetchWithTimeout(`${BASE_URL}/recommend/complex/noAi/`, {
+    const response = await fetchWithTimeout(`${BASE_URL}/recommend/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       // Note: We use the transformer from the previous file because Set cannot be JSON stringified directly
