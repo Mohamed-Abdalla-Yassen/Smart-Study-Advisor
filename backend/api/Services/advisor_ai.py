@@ -98,7 +98,7 @@ Completed Courses (DO NOT RECOMMEND THESE): {completed_str}
    - Tier 1 (100.0%): Course Year is in Allowed Years AND Difficulty is in Allowed Difficulties AND Preference is in Preferred Subjects.
    - Tier 2 (70.0%): Course Year is in Allowed Years AND Difficulty is in Allowed Difficulties (Preferences don't match).
    - Tier 3 (50.0%): Course Year is in Allowed Years (Neither Difficulty nor Preferences match).
-   - Tier 4 (20.0%): Course Year is NOT in Allowed Years (Future course).
+   - Tier 4 (20.0%): Course Year is NOT in Allowed Years AND Difficulty is NOT in Allowed Difficulties AND Subject Tag does NOT match Preferred Subjects
 4. You MUST return your answer as a raw JSON array containing exactly one object. 
 5. Do NOT use markdown formatting. Just output the raw JSON text.
 6. The JSON object MUST strictly follow this schema, filling in the correct calculated Tier and Percentage:
