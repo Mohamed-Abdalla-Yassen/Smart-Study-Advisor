@@ -5,10 +5,10 @@ class DataInjectionService:
         self.prolog = prolog_instance
 
     def inject_student_data(self, data: dict):
-        dept = data.get('department', 'CSE')
-        year = data.get('year', 1)
-        interests = data.get('interests', [])
-        passed_courses = data.get('passed_courses', [])
+        dept = data.get('dept', 'CSE')
+        years = data.get('years', [1])
+        interests = data.get('prefs', [])
+        passed_courses = data.get('prereqs', [])
         diffs = data.get('difficulties', ['Easy', 'Medium', 'Hard'])
 
         try:
@@ -17,8 +17,9 @@ class DataInjectionService:
             format_list = lambda items: str(items).replace('"', "'")
             interests_prolog = format_list(interests)
             diffs_prolog = format_list(diffs)
+            years_prolog = format_list(years)
             name = 'non'
-            student_fact = f"student({name}, '{dept}', {year}, {interests_prolog}, {diffs_prolog})"
+            student_fact = f"student({name}, '{dept}', {years_prolog}, {interests_prolog}, {diffs_prolog})"
             self.prolog.assertz(student_fact)
 
             for course in passed_courses:

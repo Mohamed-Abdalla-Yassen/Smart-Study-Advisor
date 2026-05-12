@@ -15,9 +15,9 @@ check_prerequisites(Student, Course) :-
 
 % Tier 1 (100%): Same dept, within year, interests match, difficulty ok, prereqs met
 recommend_tier1(Student, Course) :-
-    student(Student, Dept, CurrentYear, Prefs, AllowedDiffs),
+    student(Student, Dept, AllowedYears, Prefs, AllowedDiffs),
     course(Course, Dept, _, CourseYear),
-    CourseYear =< CurrentYear,
+    member(CourseYear,AllowedYears),
     \+ completed(Student, Course),
     check_prerequisites(Student, Course),
     match_interests(Prefs, Course),
@@ -25,9 +25,9 @@ recommend_tier1(Student, Course) :-
 
 % Tier 2 (70%): Same dept, within year, prereqs met, difficulty ok, interests don't match
 recommend_tier2(Student, Course) :-
-    student(Student, Dept, CurrentYear, Prefs, AllowedDiffs),
+    student(Student, Dept, AllowedYears, Prefs, AllowedDiffs),
     course(Course, Dept, _, CourseYear),
-    CourseYear =< CurrentYear,
+    member(CourseYear,AllowedYears),
     \+ completed(Student, Course),
     check_prerequisites(Student, Course),
     \+ match_interests(Prefs, Course),
@@ -35,19 +35,19 @@ recommend_tier2(Student, Course) :-
 
 % Tier 3 (50%): Same dept, within year, prereqs met, neither interest nor difficulty match
 recommend_tier3(Student, Course) :-
-    student(Student, Dept, CurrentYear, Prefs, AllowedDiffs),
+    student(Student, Dept, AllowedYears, Prefs, AllowedDiffs),
     course(Course, Dept, _, CourseYear),
-    CourseYear =< CurrentYear,
+    member(CourseYear,AllowedYears),
     \+ completed(Student, Course),
     check_prerequisites(Student, Course),
     \+ match_interests(Prefs, Course),
     \+ match_difficulty(AllowedDiffs, Course).
 
-% Tier 4 (20%): Future course, prereqs met, neither interest nor difficulty match
+% Tier 4 (20%): (Year not in allowed list), prereqs met, neither interest nor difficulty match
 recommend_tier4(Student, Course) :-
-    student(Student, Dept, CurrentYear, Prefs, AllowedDiffs),
+    student(Student, Dept, AllowedYears, Prefs, AllowedDiffs),
     course(Course, Dept, _, CourseYear),
-    CourseYear > CurrentYear,
+    \+member(CourseYear,AllowedYears),
     \+ completed(Student, Course),
     check_prerequisites(Student, Course),
     \+ match_interests(Prefs, Course),
