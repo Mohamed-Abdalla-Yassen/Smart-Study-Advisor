@@ -35,9 +35,10 @@
 ---
 
 ## 🎬 Demo Video
+| AI           | Prolog  |
+|:------------:|:-------:|
+| [AI Demo](assets/records/IMG_6209.MP4) | [Prolog Demo](assets/records/IMG_6208.MP4) |
 
-### AI (Gemini) + Logic (Prolog) Advisor
-[![Demo](https://img.shields.io/badge/▶_Watch_Demo-FF0000?style=for-the-badge&logo=youtube)](https://youtube.com/your-link-here)
 
 <!-- Replace the link above with your actual YouTube video URL -->
 
