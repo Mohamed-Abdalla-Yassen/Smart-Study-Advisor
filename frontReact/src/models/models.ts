@@ -135,7 +135,7 @@ export const AppConstants = {
   years: [1, 2, 3, 4, 5],
 
   allCourses: [
-    'Architectural Design 1', 'History of Architecture', 'Applied City Planning 2',
+    'none', 'Architectural Design 1', 'History of Architecture', 'Applied City Planning 2',
     'Introduction to Urban Planning', 'Advanced Environmental Control 3',
     'Applied Architectural Acoustics 2', 'Applied Urban Sociology',
     'Contemporary Historic Preservation 2', 'Computational Housing Development 1',

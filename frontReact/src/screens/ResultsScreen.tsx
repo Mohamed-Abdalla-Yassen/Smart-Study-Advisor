@@ -47,8 +47,9 @@ export const ResultsScreen: React.FC = () => {
     return results.filter((c) => {
       if (filterTier === 'Low') return c.matchPercentage < 50;
       if (filterTier === 'Tier 1') return c.matchPercentage === 100;
-      if (filterTier === 'Tier 2') return c.matchPercentage === 75;
+      if (filterTier === 'Tier 2') return c.matchPercentage === 70;
       if (filterTier === 'Tier 3') return c.matchPercentage === 50;
+      if (filterTier === 'Tier 4') return c.matchPercentage === 20;
       return true;
     });
   }, [results, filterTier]);
@@ -56,8 +57,9 @@ export const ResultsScreen: React.FC = () => {
   const counts = useMemo(() => ({
     'All': results.length,
     'Tier 1': results.filter((c) => c.matchPercentage === 100).length,
-    'Tier 2': results.filter((c) => c.matchPercentage === 75).length,
+    'Tier 2': results.filter((c) => c.matchPercentage === 70).length,
     'Tier 3': results.filter((c) => c.matchPercentage === 50).length,
+    'Tier 4': results.filter((c) => c.matchPercentage === 20).length,
     'Low': results.filter((c) => c.matchPercentage < 50).length,
   }), [results]);
 
