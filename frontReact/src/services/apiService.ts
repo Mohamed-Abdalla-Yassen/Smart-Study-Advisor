@@ -7,7 +7,7 @@ const BASE_URL = 'http://127.0.0.1:8000/api';
 // const BASE_URL = 'http://10.0.2.2:8000/api'; // Android emulator
 // const BASE_URL = 'http://YOUR_PC_IP:8000/api'; // Real device
 
-const TIMEOUT_MS = 15000;
+const TIMEOUT_MS = 400000; // 40 seconds
 
 export class ApiException extends Error {
   statusCode: number;

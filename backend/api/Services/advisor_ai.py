@@ -92,16 +92,16 @@ Completed Courses (DO NOT RECOMMEND THESE): {completed_str}
 [{valid_courses}]
 
 --- RULES & TIERS ---
-1. Pick exactly 1 course from the Available Courses list that best fits the profile.
-2. DO NOT pick any course listed in Completed Courses.
-3. Evaluate and classify the best course using these strict Tiers (Tier 1 is best):
+1. Evaluate EVERY course in the "AVAILABLE COURSES" list.
+2. DO NOT include any course listed in "Completed Courses".
+3. For EVERY valid course, classify it into one of these strict Tiers:
    - Tier 1 (100.0%): Course Year is in Allowed Years AND Difficulty is in Allowed Difficulties AND Preference is in Preferred Subjects.
    - Tier 2 (70.0%): Course Year is in Allowed Years AND Difficulty is in Allowed Difficulties (Preferences don't match).
    - Tier 3 (50.0%): Course Year is in Allowed Years (Neither Difficulty nor Preferences match).
-   - Tier 4 (20.0%): Course Year is NOT in Allowed Years AND Difficulty is NOT in Allowed Difficulties AND Subject Tag does NOT match Preferred Subjects
-4. You MUST return your answer as a raw JSON array containing exactly one object. 
+   - Tier 4 (20.0%): Course Year is NOT in Allowed Years AND Difficulty is NOT in Allowed Difficulties AND Subject Tag does NOT match Preferred Subjects.
+4. You MUST return your answer as a raw JSON array containing ALL courses that fall into Tiers 1, 2, or 3.
 5. Do NOT use markdown formatting. Just output the raw JSON text.
-6. The JSON object MUST strictly follow this schema, filling in the correct calculated Tier and Percentage:
+6. Each object in the JSON array MUST strictly follow this schema:
 
 [
   {{
@@ -112,7 +112,7 @@ Completed Courses (DO NOT RECOMMEND THESE): {completed_str}
       "course_name": "<Exact Course Name>",
       "difficulty": "<Course Difficulty>",
       "prerequisite": "NaN",
-      "preference": "<The matched preference, or 'General' if Tier 2/3/4>",
+      "preference": "<The actual subject/tag of the course>",
       "year_of_study": <Course Year as an integer>,
       "department": "{department}"
     }}
