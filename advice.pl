@@ -472,315 +472,315 @@ course('Six Sigma 3', 'PE', 'Medium', 4).
 % Format: prerequisite(Course, RequiredCourse)
 % -----------------------------------------------------------------
 
-prerequisite('Mathematics 2 (Integration)', 'Intro to Basic and Applied Sciences').
-prerequisite('Physics 2 (Electricity)', 'Intro to Basic and Applied Sciences').
-prerequisite('Engineering Mechanics 1', 'Intro to Basic and Applied Sciences').
-prerequisite('Engineering Mechanics 2', 'Intro to Basic and Applied Sciences').
-prerequisite('Data Structures and Algorithms', 'Intro to CSE').
-prerequisite('Digital Electronics', 'Intro to EE').
-prerequisite('Engineering Thermodynamics', 'Intro to ME').
-prerequisite('Fluid Mechanics', 'Intro to ME').
-prerequisite('Surveying', 'Intro to CE').
-prerequisite('Operations Research', 'Intro to PE').
-prerequisite('Architectural Design 1', 'Intro to Architecture').
-prerequisite('History of Architecture', 'Intro to Architecture').
-prerequisite('Technical Report Writing', 'Intro to Humanities').
-prerequisite('Network Security 1', 'Physics').
-prerequisite('Applied Satellite Communications 3', 'Intro to EE').
-prerequisite('Advanced Robotics and Automation 2', 'Physics').
-prerequisite('Applied City Planning 2', 'Intro to Architecture').
-prerequisite('Experimental Calculus of Variations', 'Calculus').
-prerequisite('Theoretical Public Speaking 3', 'Intro to Humanities').
-prerequisite('Experimental Quantum Computing 2', 'Physics').
-prerequisite('Theoretical Electronic Devices 1', 'Calculus').
-prerequisite('Theoretical Advanced Manufacturing', 'Intro to ME').
-prerequisite('Material Science', 'Intro to PE').
-prerequisite('Contemporary GIS 1', 'Physics').
-prerequisite('Introduction to Urban Planning', 'Physics').
-prerequisite('Applied Tensor Analysis 1', 'Intro to Basic and Applied Sciences').
-prerequisite('Applied Technical Communication 2', 'Programming 1').
-prerequisite('Theoretical Smart Grids', 'Physics').
-prerequisite('Experimental HVAC Systems 3', 'Programming 1').
-prerequisite('Computational Project Management 1', 'Calculus').
-prerequisite('Advanced Steel Structures', 'Calculus').
-prerequisite('Advanced Environmental Control 3', 'Intro to Architecture').
-prerequisite('Principles of Discrete Mathematics 2', 'Calculus').
-prerequisite('Theoretical Human Rights 2', 'Physics').
-prerequisite('Computational Power Electronics', 'Physics').
-prerequisite('Experimental Quality Control', 'Physics').
-prerequisite('Properties of Materials 3', 'Programming 1').
-prerequisite('Applied Architectural Acoustics 2', 'Physics').
-prerequisite('Fundamentals of Astrophysics', 'Calculus').
-prerequisite('Computational Sociology 3', 'Programming 1').
-prerequisite('Computational Database Systems', 'Programming 1').
-prerequisite('Advanced Electronic Devices 3', 'Calculus').
-prerequisite('Theoretical Heat and Mass Transfer', 'Programming 1').
-prerequisite('Contemporary Industrial Robotics', 'Physics').
-prerequisite('Transportation Engineering 3', 'Calculus').
-prerequisite('Applied Urban Sociology', 'Physics').
-prerequisite('Fundamentals of Organic Chemistry', 'Calculus').
-prerequisite('Fundamentals of Organizational Behavior 2', 'Intro to Humanities').
-prerequisite('Computational Network Security 2', 'Physics').
-prerequisite('Contemporary Microwave Engineering 1', 'Programming 1').
-prerequisite('Contemporary Nanotechnology 1', 'Calculus').
-prerequisite('Theoretical Six Sigma 3', 'Intro to PE').
-prerequisite('Fundamentals of Hydrology 1', 'Calculus').
-prerequisite('Contemporary Historic Preservation 2', 'Programming 1').
-prerequisite('Introduction to Thermodynamics of Materials', 'Programming 1').
-prerequisite('Principles of Macroeconomics', 'Calculus').
-prerequisite('Introduction to Distributed Systems', 'Intro to CSE').
-prerequisite('Applied Digital Signal Processing', 'Calculus').
-prerequisite('Advanced Fracture Mechanics 3', 'Intro to ME').
-prerequisite('Computational Housing Development 1', 'Physics').
-prerequisite('Introduction to Engineering Law', 'Intro to Humanities').
-prerequisite('Theoretical Control Systems 2', 'Physics').
-prerequisite('Advanced Energy Conversion', 'Programming 1').
-prerequisite('Wastewater Management 2', 'Calculus').
-prerequisite('Principles of Numerical Analysis 1', 'Programming 1').
-prerequisite('Smart Grids', 'Programming 1').
-prerequisite('Principles of Aerospace Engineering 2', 'Intro to ME').
-prerequisite('Computational Ergonomics 1', 'Intro to PE').
-prerequisite('Experimental Parametric Design 3', 'Calculus').
-prerequisite('Advanced Calculus of Variations 2', 'Physics').
-prerequisite('Applied Macroeconomics', 'Programming 1').
-prerequisite('Computational Smart Grids 3', 'Calculus').
-prerequisite('Experimental Composite Materials 3', 'Programming 1').
-prerequisite('Applied Lean Manufacturing 2', 'Physics').
-prerequisite('Applied Construction Management 1', 'Physics').
-prerequisite('Applied Astrophysics 2', 'Programming 1').
-prerequisite('Principles of Network Security', 'Physics').
-prerequisite('Theoretical Tribology 2', 'Programming 1').
-prerequisite('Computational Industrial Robotics 2', 'Physics').
-prerequisite('Applied Coastal Engineering 2', 'Intro to CE').
-prerequisite('Contemporary Urban Design 1', 'Programming 1').
-prerequisite('Contemporary Biophysics 3', 'Physics').
-prerequisite('Introduction to Operating Systems 1', 'Intro to CSE').
-prerequisite('Principles of Radar Systems 1', 'Physics').
-prerequisite('Principles of Energy Conversion 2', 'Intro to ME').
-prerequisite('Introduction to Industrial Management', 'Physics').
-prerequisite('Parametric Design 3', 'Programming 1').
-prerequisite('Computational Statistics 3', 'Intro to Basic and Applied Sciences').
-prerequisite('Theoretical Distributed Systems 1', 'Intro to CSE').
-prerequisite('Computational Tribology 1', 'Intro to ME').
-prerequisite('Computational Hydrology 1', 'Programming 1').
-prerequisite('Introduction to Parametric Design', 'Physics').
-prerequisite('Theoretical Linear Algebra', 'Programming 1').
-prerequisite('Introduction to Technical Communication', 'Physics').
-prerequisite('Theoretical Distributed Systems 3', 'Physics').
-prerequisite('Theoretical Electrical Power', 'Physics').
-prerequisite('Experimental Refrigeration and Air Conditioning 3', 'Calculus').
-prerequisite('Fundamentals of Highway Engineering', 'Intro to CE').
-prerequisite('Introduction to Digital Fabrication 1', 'Calculus').
-prerequisite('Applied Discrete Mathematics 2', 'Intro to Basic and Applied Sciences').
-prerequisite('Introduction to Industrial Psychology', 'Physics').
-prerequisite('Principles of Kinematics 3', 'Programming 1').
-prerequisite('Introduction to Ergonomics', 'Intro to PE').
-prerequisite('Experimental Bridge Engineering 1', 'Calculus').
-prerequisite('Architectural Acoustics 3', 'Calculus').
-prerequisite('Experimental Numerical Analysis 1', 'Programming 1').
-prerequisite('Advanced Engineering Law 3', 'Calculus').
-prerequisite('Fundamentals of Big Data Analytics 2', 'Intro to CSE').
-prerequisite('Principles of Satellite Communications 3', 'Physics').
-prerequisite('Applied Automotive Engineering 2', 'Physics').
-prerequisite('Contemporary Pavement Design 1', 'Physics').
-prerequisite('Introduction to Calculus of Variations', 'Calculus').
-prerequisite('Principles of Philosophy of Science 3', 'Physics').
-prerequisite('Contemporary Data Mining', 'Physics').
-prerequisite('Contemporary Power Electronics 1', 'Calculus').
-prerequisite('Applied Earthquake Engineering 3', 'Calculus').
-prerequisite('Contemporary Modern Physics 1', 'Intro to Basic and Applied Sciences').
-prerequisite('Contemporary Industrial Psychology 1', 'Physics').
-prerequisite('Theoretical Computer Architecture', 'Calculus').
-prerequisite('Experimental Biomedical Instrumentation 1', 'Calculus').
-prerequisite('Computational Operations Management 3', 'Calculus').
-prerequisite('Advanced Properties of Materials 2', 'Intro to CE').
-prerequisite('Applied Housing Development 1', 'Programming 1').
-prerequisite('Introduction to Linear Algebra', 'Intro to Basic and Applied Sciences').
-prerequisite('Professional Ethics 3', 'Programming 1').
-prerequisite('Contemporary Compiler Design 2', 'Intro to CSE').
-prerequisite('Introduction to Optical Communications', 'Physics').
-prerequisite('Applied Internal Combustion Engines 2', 'Calculus').
-prerequisite('Contemporary Industrial Management 2', 'Physics').
-prerequisite('Experimental Hydrology 2', 'Programming 1').
-prerequisite('Building Information Modeling 2', 'Programming 1').
-prerequisite('Advanced Tensor Analysis', 'Physics').
-prerequisite('Computational Microeconomics 2', 'Physics').
-prerequisite('Experimental Signals and Systems 3', 'Calculus').
-prerequisite('Applied Nanotechnology 2', 'Intro to ME').
-prerequisite('Advanced Lighting Design', 'Calculus').
-prerequisite('Fundamentals of Thermodynamics of Materials', 'Programming 1').
-prerequisite('Entrepreneurship 2', 'Physics').
-prerequisite('Computational Internet of Things', 'Physics').
-prerequisite('Contemporary Biomedical Instrumentation 3', 'Intro to EE').
-prerequisite('Fundamentals of Kinematics', 'Intro to ME').
-prerequisite('Contemporary Systems Engineering 2', 'Physics').
-prerequisite('Principles of Statistics', 'Intro to Basic and Applied Sciences').
-prerequisite('Contemporary Entrepreneurship 3', 'Intro to Humanities').
-prerequisite('Introduction to Game Development', 'Intro to CSE').
-prerequisite('Principles of Control Systems 1', 'Calculus').
-prerequisite('Principles of Acoustics', 'Calculus').
-prerequisite('Principles of Industrial Management', 'Calculus').
-prerequisite('Applied Building Construction', 'Physics').
-prerequisite('Theoretical Inorganic Chemistry 2', 'Intro to Basic and Applied Sciences').
-prerequisite('Advanced Virtual Reality 3', 'Intro to CSE').
-prerequisite('Experimental Automotive Engineering 1', 'Calculus').
-prerequisite('Fundamentals of Quality Control 1', 'Intro to PE').
-prerequisite('Tunnel Engineering 3', 'Physics').
-prerequisite('Computational Parametric Design 3', 'Calculus').
-prerequisite('Numerical Analysis 2', 'Calculus').
-prerequisite('Contemporary Fundamentals of Management', 'Physics').
-prerequisite('Algorithms', 'Programming 1').
-prerequisite('Heat and Mass Transfer 1', 'Calculus').
-prerequisite('Theoretical Industrial Management 1', 'Programming 1').
-prerequisite('Applied Wastewater Management', 'Programming 1').
-prerequisite('Fundamentals of Urban Sociology 2', 'Physics').
-prerequisite('Theoretical Statistics', 'Programming 1').
-prerequisite('Applied Distributed Systems 1', 'Programming 1').
-prerequisite('Computational Electromagnetic Fields', 'Programming 1').
-prerequisite('Fundamentals of Nanotechnology 2', 'Physics').
-prerequisite('Advanced Computer Integrated Manufacturing', 'Physics').
-prerequisite('Applied Lighting Design 3', 'Physics').
-prerequisite('Experimental Numerical Analysis', 'Programming 1').
-prerequisite('Introduction to Philosophy of Science', 'Programming 1').
-prerequisite('Theoretical Cybersecurity', 'Intro to CSE').
-prerequisite('Computational Electrical Power 3', 'Programming 1').
-prerequisite('Principles of Finite Element Analysis 3', 'Programming 1').
-prerequisite('Applied Industrial Robotics', 'Physics').
-prerequisite('Traffic Engineering 3', 'Intro to CE').
-prerequisite('Contemporary Urban Planning 1', 'Physics').
-prerequisite('Experimental Quantum Mechanics 1', 'Intro to Basic and Applied Sciences').
-prerequisite('Computational Technical Communication', 'Physics').
-prerequisite('Advanced Communication Theory', 'Calculus').
-prerequisite('Theoretical Theory of Machines', 'Calculus').
-prerequisite('Advanced Operations Management', 'Programming 1').
-prerequisite('Fundamentals of Wastewater Management 3', 'Programming 1').
-prerequisite('Computational Lighting Design 3', 'Calculus').
-prerequisite('Principles of Discrete Mathematics 1', 'Programming 1').
-prerequisite('Contemporary Microeconomics 1', 'Calculus').
-prerequisite('Introduction to Cybersecurity', 'Intro to CSE').
-prerequisite('Smart Grids 2', 'Physics').
-prerequisite('Fundamentals of Internal Combustion Engines 1', 'Intro to ME').
-prerequisite('Advanced Supply Chain Management', 'Intro to PE').
-prerequisite('Applied Soil Mechanics', 'Intro to CE').
-prerequisite('Contemporary Housing Development 1', 'Programming 1').
-prerequisite('Fundamentals of Biophysics 2', 'Intro to Basic and Applied Sciences').
-prerequisite('Fundamentals of Entrepreneurship', 'Programming 1').
-prerequisite('Theoretical Blockchain Technology 3', 'Programming 1').
-prerequisite('Computational Communication Theory', 'Intro to EE').
-prerequisite('Computational Robotics and Automation 3', 'Calculus').
-prerequisite('Contemporary Supply Chain Management 1', 'Calculus').
-prerequisite('Advanced Wastewater Management 3', 'Intro to CE').
-prerequisite('Theoretical Discrete Mathematics 1', 'Physics').
-prerequisite('Fundamentals of Human Rights 3', 'Physics').
-prerequisite('Fundamentals of Algorithms 3', 'Physics').
-prerequisite('Fundamentals of Control Systems 1', 'Calculus').
-prerequisite('Introduction to Energy Conversion', 'Calculus').
-prerequisite('Pavement Design 2', 'Calculus').
-prerequisite('Technical Communication 3', 'Calculus').
-prerequisite('Applied Bioinformatics 1', 'Physics').
-prerequisite('Experimental Satellite Communications', 'Calculus').
-prerequisite('Introduction to Dynamics', 'Intro to ME').
-prerequisite('Advanced Manufacturing Processes 2', 'Programming 1').
-prerequisite('Introduction to Bridge Engineering', 'Calculus').
-prerequisite('Computational Digital Fabrication 2', 'Programming 1').
-prerequisite('Introduction to Biophysics', 'Physics').
-prerequisite('Professional Ethics 1', 'Physics').
-prerequisite('Fundamentals of Web Development', 'Intro to CSE').
-prerequisite('Advanced Electronic Devices 2', 'Calculus').
-prerequisite('Fundamentals of Computational Fluid Dynamics', 'Calculus').
-prerequisite('Advanced Geotechnical Engineering 3', 'Physics').
-prerequisite('Parametric Design', 'Physics').
-prerequisite('Principles of Public Speaking 3', 'Calculus').
-prerequisite('Computational Electrical Machines 1', 'Programming 1').
-prerequisite('Applied Landscape Architecture 2', 'Physics').
-prerequisite('Introduction to Topology', 'Calculus').
-prerequisite('Theoretical Philosophy of Science 3', 'Physics').
-prerequisite('Contemporary Distributed Systems 1', 'Calculus').
-prerequisite('Fundamentals of Finite Element Analysis 2', 'Intro to ME').
-prerequisite('Principles of Operations Management', 'Physics').
-prerequisite('Experimental Coastal Engineering', 'Physics').
-prerequisite('Advanced Building Construction 3', 'Calculus').
-prerequisite('Contemporary Modern Physics 2', 'Physics').
-prerequisite('Advanced Fundamentals of Management 2', 'Programming 1').
-prerequisite('Theoretical Data Mining 3', 'Programming 1').
-prerequisite('Introduction to Internal Combustion Engines', 'Programming 1').
-prerequisite('Material Science 1', 'Programming 1').
-prerequisite('Experimental GIS 2', 'Physics').
-prerequisite('Contemporary Digital Fabrication', 'Programming 1').
-prerequisite('Experimental Fundamentals of Management 1', 'Intro to Humanities').
-prerequisite('Electrical Machines 1', 'Calculus').
-prerequisite('Advanced Fracture Mechanics', 'Physics').
-prerequisite('Applied Industrial Robotics 3', 'Physics').
-prerequisite('Experimental Highway Engineering 2', 'Calculus').
-prerequisite('Fundamentals of Topology 1', 'Calculus').
-prerequisite('Organizational Behavior', 'Programming 1').
-prerequisite('Computational Robotics 3', 'Physics').
-prerequisite('Contemporary Communication Theory 3', 'Calculus').
-prerequisite('Principles of Operations Management 1', 'Programming 1').
-prerequisite('Theoretical Reinforced Concrete Design', 'Intro to CE').
-prerequisite('Fundamentals of Statistics 1', 'Calculus').
-prerequisite('Advanced Organizational Behavior', 'Intro to Humanities').
-prerequisite('Applied Human-Computer Interaction 2', 'Calculus').
-prerequisite('Computational Six Sigma 1', 'Intro to PE').
-prerequisite('Steel Structures 3', 'Physics').
-prerequisite('Theoretical Housing Development 1', 'Physics').
-prerequisite('Contemporary Compiler Design 1', 'Physics').
-prerequisite('Theoretical High Voltage Engineering', 'Calculus').
-prerequisite('Applied Kinematics 1', 'Programming 1').
-prerequisite('Principles of Computer Integrated Manufacturing', 'Physics').
-prerequisite('Experimental Landscape Architecture 1', 'Intro to Architecture').
-prerequisite('Applied Linear Algebra 2', 'Programming 1').
-prerequisite('Public Speaking 2', 'Programming 1').
-prerequisite('Advanced Embedded Systems 2', 'Programming 1').
-prerequisite('Principles of Digital Signal Processing 2', 'Physics').
-prerequisite('Fundamentals of Internal Combustion Engines 3', 'Physics').
-prerequisite('Theoretical Manufacturing Processes 2', 'Calculus').
-prerequisite('Applied Environmental Control 1', 'Calculus').
-prerequisite('Experimental Philosophy of Science 1', 'Intro to Humanities').
-prerequisite('Computational Natural Language Processing', 'Calculus').
-prerequisite('Contemporary Aerospace Engineering 2', 'Intro to ME').
-prerequisite('Theoretical Project Management 2', 'Calculus').
-prerequisite('Contemporary Advanced Steel Design 2', 'Physics').
-prerequisite('Advanced Historic Preservation 3', 'Physics').
-prerequisite('Principles of Human Rights 1', 'Physics').
-prerequisite('Theoretical Power Electronics 2', 'Programming 1').
-prerequisite('Robotics and Automation 2', 'Physics').
-prerequisite('Theoretical Computer Integrated Manufacturing 2', 'Intro to PE').
-prerequisite('Principles of Construction Management 2', 'Calculus').
-prerequisite('Computational Inorganic Chemistry 3', 'Programming 1').
-prerequisite('Theoretical Public Speaking', 'Programming 1').
-prerequisite('Applied Internet of Things 3', 'Physics').
-prerequisite('Introduction to High Voltage Engineering', 'Physics').
-prerequisite('Fundamentals of Nanotechnology 3', 'Calculus').
-prerequisite('Theoretical Manufacturing Processes', 'Intro to PE').
-prerequisite('Bridge Engineering 3', 'Physics').
-prerequisite('Advanced Urban Sociology', 'Intro to Architecture').
-prerequisite('Computational Business Communication 1', 'Programming 1').
-prerequisite('Theoretical Cryptography', 'Programming 1').
-prerequisite('Computational Industrial Automation', 'Programming 1').
-prerequisite('Theoretical Aerospace Engineering 1', 'Physics').
-prerequisite('Principles of Ergonomics 2', 'Intro to PE').
-prerequisite('Principles of Interior Design 3', 'Intro to Architecture').
-prerequisite('Computational Philosophy of Science', 'Calculus').
-prerequisite('Fundamentals of Antenna Theory 1', 'Calculus').
-prerequisite('Fundamentals of Refrigeration and Air Conditioning 1', 'Programming 1').
-prerequisite('Industrial Robotics 3', 'Physics').
-prerequisite('Contemporary Bridge Engineering 1', 'Programming 1').
-prerequisite('Computational Building Construction 2', 'Programming 1').
-prerequisite('Applied Optics 1', 'Programming 1').
-prerequisite('Applied Formal Languages 2', 'Intro to CSE').
-prerequisite('VLSI Design 2', 'Physics').
-prerequisite('Principles of Automotive Engineering 2', 'Programming 1').
-prerequisite('Fundamentals of Bridge Engineering 2', 'Programming 1').
-prerequisite('Quantum Mechanics 3', 'Physics').
-prerequisite('Advanced Business Communication 2', 'Intro to Humanities').
-prerequisite('Digital Fabrication 2', 'Calculus').
-prerequisite('Fundamentals of Calculus of Variations 3', 'Programming 1').
-prerequisite('Experimental Macroeconomics 2', 'Physics').
-prerequisite('Experimental Digital Logic 2', 'Calculus').
-prerequisite('Applied Electromagnetic Fields 3', 'Programming 1').
-prerequisite('Introduction to Tribology 1', 'Programming 1').
-prerequisite('Six Sigma 3', 'Programming 1').
+prerequisite('Mathematics 2 (Integration)', 'Mathematics 1 (Calculus)').
+prerequisite('Physics 2 (Electricity)', 'Mathematics 1 (Calculus)').
+prerequisite('Engineering Mechanics 1', 'Mathematics 1 (Calculus)').
+prerequisite('Engineering Mechanics 2', 'Mathematics 1 (Calculus)').
+prerequisite('Data Structures and Algorithms', 'Introduction to Computer Engineering').
+prerequisite('Digital Electronics', 'Electrical Circuits 1').
+prerequisite('Engineering Thermodynamics', 'Machine Design 1').
+prerequisite('Fluid Mechanics', 'Machine Design 1').
+prerequisite('Surveying', 'Structural Analysis 1').
+prerequisite('Operations Research', 'Production Engineering').
+prerequisite('Architectural Design 1', 'Architectural Design 1').
+prerequisite('History of Architecture', 'Architectural Design 1').
+prerequisite('Technical Report Writing', 'Technical Report Writing').
+prerequisite('Network Security 1', 'Physics 1 (Mechanics)').
+prerequisite('Applied Satellite Communications 3', 'Electrical Circuits 1').
+prerequisite('Advanced Robotics and Automation 2', 'Physics 1 (Mechanics)').
+prerequisite('Applied City Planning 2', 'Architectural Design 1').
+prerequisite('Experimental Calculus of Variations', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Public Speaking 3', 'Technical Report Writing').
+prerequisite('Experimental Quantum Computing 2', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Electronic Devices 1', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Advanced Manufacturing', 'Machine Design 1').
+prerequisite('Material Science', 'Production Engineering').
+prerequisite('Contemporary GIS 1', 'Physics 1 (Mechanics)').
+prerequisite('Introduction to Urban Planning', 'Physics 1 (Mechanics)').
+prerequisite('Applied Tensor Analysis 1', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Technical Communication 2', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Smart Grids', 'Physics 1 (Mechanics)').
+prerequisite('Experimental HVAC Systems 3', 'Computer Programming (C/C++)').
+prerequisite('Computational Project Management 1', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Steel Structures', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Environmental Control 3', 'Architectural Design 1').
+prerequisite('Principles of Discrete Mathematics 2', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Human Rights 2', 'Physics 1 (Mechanics)').
+prerequisite('Computational Power Electronics', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Quality Control', 'Physics 1 (Mechanics)').
+prerequisite('Properties of Materials 3', 'Computer Programming (C/C++)').
+prerequisite('Applied Architectural Acoustics 2', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Astrophysics', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Sociology 3', 'Computer Programming (C/C++)').
+prerequisite('Computational Database Systems', 'Computer Programming (C/C++)').
+prerequisite('Advanced Electronic Devices 3', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Heat and Mass Transfer', 'Computer Programming (C/C++)').
+prerequisite('Contemporary Industrial Robotics', 'Physics 1 (Mechanics)').
+prerequisite('Transportation Engineering 3', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Urban Sociology', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Organic Chemistry', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Organizational Behavior 2', 'Technical Report Writing').
+prerequisite('Computational Network Security 2', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Microwave Engineering 1', 'Computer Programming (C/C++)').
+prerequisite('Contemporary Nanotechnology 1', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Six Sigma 3', 'Production Engineering').
+prerequisite('Fundamentals of Hydrology 1', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Historic Preservation 2', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Thermodynamics of Materials', 'Computer Programming (C/C++)').
+prerequisite('Principles of Macroeconomics', 'Mathematics 1 (Calculus)').
+prerequisite('Introduction to Distributed Systems', 'Introduction to Computer Engineering').
+prerequisite('Applied Digital Signal Processing', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Fracture Mechanics 3', 'Machine Design 1').
+prerequisite('Computational Housing Development 1', 'Physics 1 (Mechanics)').
+prerequisite('Introduction to Engineering Law', 'Technical Report Writing').
+prerequisite('Theoretical Control Systems 2', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Energy Conversion', 'Computer Programming (C/C++)').
+prerequisite('Wastewater Management 2', 'Mathematics 1 (Calculus)').
+prerequisite('Principles of Numerical Analysis 1', 'Computer Programming (C/C++)').
+prerequisite('Smart Grids', 'Computer Programming (C/C++)').
+prerequisite('Principles of Aerospace Engineering 2', 'Machine Design 1').
+prerequisite('Computational Ergonomics 1', 'Production Engineering').
+prerequisite('Experimental Parametric Design 3', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Calculus of Variations 2', 'Physics 1 (Mechanics)').
+prerequisite('Applied Macroeconomics', 'Computer Programming (C/C++)').
+prerequisite('Computational Smart Grids 3', 'Mathematics 1 (Calculus)').
+prerequisite('Experimental Composite Materials 3', 'Computer Programming (C/C++)').
+prerequisite('Applied Lean Manufacturing 2', 'Physics 1 (Mechanics)').
+prerequisite('Applied Construction Management 1', 'Physics 1 (Mechanics)').
+prerequisite('Applied Astrophysics 2', 'Computer Programming (C/C++)').
+prerequisite('Principles of Network Security', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Tribology 2', 'Computer Programming (C/C++)').
+prerequisite('Computational Industrial Robotics 2', 'Physics 1 (Mechanics)').
+prerequisite('Applied Coastal Engineering 2', 'Structural Analysis 1').
+prerequisite('Contemporary Urban Design 1', 'Computer Programming (C/C++)').
+prerequisite('Contemporary Biophysics 3', 'Physics 1 (Mechanics)').
+prerequisite('Introduction to Operating Systems 1', 'Introduction to Computer Engineering').
+prerequisite('Principles of Radar Systems 1', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Energy Conversion 2', 'Machine Design 1').
+prerequisite('Introduction to Industrial Management', 'Physics 1 (Mechanics)').
+prerequisite('Parametric Design 3', 'Computer Programming (C/C++)').
+prerequisite('Computational Statistics 3', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Distributed Systems 1', 'Introduction to Computer Engineering').
+prerequisite('Computational Tribology 1', 'Machine Design 1').
+prerequisite('Computational Hydrology 1', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Parametric Design', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Linear Algebra', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Technical Communication', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Distributed Systems 3', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Electrical Power', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Refrigeration and Air Conditioning 3', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Highway Engineering', 'Structural Analysis 1').
+prerequisite('Introduction to Digital Fabrication 1', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Discrete Mathematics 2', 'Mathematics 1 (Calculus)').
+prerequisite('Introduction to Industrial Psychology', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Kinematics 3', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Ergonomics', 'Production Engineering').
+prerequisite('Experimental Bridge Engineering 1', 'Mathematics 1 (Calculus)').
+prerequisite('Architectural Acoustics 3', 'Mathematics 1 (Calculus)').
+prerequisite('Experimental Numerical Analysis 1', 'Computer Programming (C/C++)').
+prerequisite('Advanced Engineering Law 3', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Big Data Analytics 2', 'Introduction to Computer Engineering').
+prerequisite('Principles of Satellite Communications 3', 'Physics 1 (Mechanics)').
+prerequisite('Applied Automotive Engineering 2', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Pavement Design 1', 'Physics 1 (Mechanics)').
+prerequisite('Introduction to Calculus of Variations', 'Mathematics 1 (Calculus)').
+prerequisite('Principles of Philosophy of Science 3', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Data Mining', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Power Electronics 1', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Earthquake Engineering 3', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Modern Physics 1', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Industrial Psychology 1', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Computer Architecture', 'Mathematics 1 (Calculus)').
+prerequisite('Experimental Biomedical Instrumentation 1', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Operations Management 3', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Properties of Materials 2', 'Structural Analysis 1').
+prerequisite('Applied Housing Development 1', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Linear Algebra', 'Mathematics 1 (Calculus)').
+prerequisite('Professional Ethics 3', 'Computer Programming (C/C++)').
+prerequisite('Contemporary Compiler Design 2', 'Introduction to Computer Engineering').
+prerequisite('Introduction to Optical Communications', 'Physics 1 (Mechanics)').
+prerequisite('Applied Internal Combustion Engines 2', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Industrial Management 2', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Hydrology 2', 'Computer Programming (C/C++)').
+prerequisite('Building Information Modeling 2', 'Computer Programming (C/C++)').
+prerequisite('Advanced Tensor Analysis', 'Physics 1 (Mechanics)').
+prerequisite('Computational Microeconomics 2', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Signals and Systems 3', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Nanotechnology 2', 'Machine Design 1').
+prerequisite('Advanced Lighting Design', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Thermodynamics of Materials', 'Computer Programming (C/C++)').
+prerequisite('Entrepreneurship 2', 'Physics 1 (Mechanics)').
+prerequisite('Computational Internet of Things', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Biomedical Instrumentation 3', 'Electrical Circuits 1').
+prerequisite('Fundamentals of Kinematics', 'Machine Design 1').
+prerequisite('Contemporary Systems Engineering 2', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Statistics', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Entrepreneurship 3', 'Technical Report Writing').
+prerequisite('Introduction to Game Development', 'Introduction to Computer Engineering').
+prerequisite('Principles of Control Systems 1', 'Mathematics 1 (Calculus)').
+prerequisite('Principles of Acoustics', 'Mathematics 1 (Calculus)').
+prerequisite('Principles of Industrial Management', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Building Construction', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Inorganic Chemistry 2', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Virtual Reality 3', 'Introduction to Computer Engineering').
+prerequisite('Experimental Automotive Engineering 1', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Quality Control 1', 'Production Engineering').
+prerequisite('Tunnel Engineering 3', 'Physics 1 (Mechanics)').
+prerequisite('Computational Parametric Design 3', 'Mathematics 1 (Calculus)').
+prerequisite('Numerical Analysis 2', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Fundamentals of Management', 'Physics 1 (Mechanics)').
+prerequisite('Algorithms', 'Computer Programming (C/C++)').
+prerequisite('Heat and Mass Transfer 1', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Industrial Management 1', 'Computer Programming (C/C++)').
+prerequisite('Applied Wastewater Management', 'Computer Programming (C/C++)').
+prerequisite('Fundamentals of Urban Sociology 2', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Statistics', 'Computer Programming (C/C++)').
+prerequisite('Applied Distributed Systems 1', 'Computer Programming (C/C++)').
+prerequisite('Computational Electromagnetic Fields', 'Computer Programming (C/C++)').
+prerequisite('Fundamentals of Nanotechnology 2', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Computer Integrated Manufacturing', 'Physics 1 (Mechanics)').
+prerequisite('Applied Lighting Design 3', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Numerical Analysis', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Philosophy of Science', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Cybersecurity', 'Introduction to Computer Engineering').
+prerequisite('Computational Electrical Power 3', 'Computer Programming (C/C++)').
+prerequisite('Principles of Finite Element Analysis 3', 'Computer Programming (C/C++)').
+prerequisite('Applied Industrial Robotics', 'Physics 1 (Mechanics)').
+prerequisite('Traffic Engineering 3', 'Structural Analysis 1').
+prerequisite('Contemporary Urban Planning 1', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Quantum Mechanics 1', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Technical Communication', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Communication Theory', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Theory of Machines', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Operations Management', 'Computer Programming (C/C++)').
+prerequisite('Fundamentals of Wastewater Management 3', 'Computer Programming (C/C++)').
+prerequisite('Computational Lighting Design 3', 'Mathematics 1 (Calculus)').
+prerequisite('Principles of Discrete Mathematics 1', 'Computer Programming (C/C++)').
+prerequisite('Contemporary Microeconomics 1', 'Mathematics 1 (Calculus)').
+prerequisite('Introduction to Cybersecurity', 'Introduction to Computer Engineering').
+prerequisite('Smart Grids 2', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Internal Combustion Engines 1', 'Machine Design 1').
+prerequisite('Advanced Supply Chain Management', 'Production Engineering').
+prerequisite('Applied Soil Mechanics', 'Structural Analysis 1').
+prerequisite('Contemporary Housing Development 1', 'Computer Programming (C/C++)').
+prerequisite('Fundamentals of Biophysics 2', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Entrepreneurship', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Blockchain Technology 3', 'Computer Programming (C/C++)').
+prerequisite('Computational Communication Theory', 'Electrical Circuits 1').
+prerequisite('Computational Robotics and Automation 3', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Supply Chain Management 1', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Wastewater Management 3', 'Structural Analysis 1').
+prerequisite('Theoretical Discrete Mathematics 1', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Human Rights 3', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Algorithms 3', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Control Systems 1', 'Mathematics 1 (Calculus)').
+prerequisite('Introduction to Energy Conversion', 'Mathematics 1 (Calculus)').
+prerequisite('Pavement Design 2', 'Mathematics 1 (Calculus)').
+prerequisite('Technical Communication 3', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Bioinformatics 1', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Satellite Communications', 'Mathematics 1 (Calculus)').
+prerequisite('Introduction to Dynamics', 'Machine Design 1').
+prerequisite('Advanced Manufacturing Processes 2', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Bridge Engineering', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Digital Fabrication 2', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Biophysics', 'Physics 1 (Mechanics)').
+prerequisite('Professional Ethics 1', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Web Development', 'Introduction to Computer Engineering').
+prerequisite('Advanced Electronic Devices 2', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Computational Fluid Dynamics', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Geotechnical Engineering 3', 'Physics 1 (Mechanics)').
+prerequisite('Parametric Design', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Public Speaking 3', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Electrical Machines 1', 'Computer Programming (C/C++)').
+prerequisite('Applied Landscape Architecture 2', 'Physics 1 (Mechanics)').
+prerequisite('Introduction to Topology', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Philosophy of Science 3', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Distributed Systems 1', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Finite Element Analysis 2', 'Machine Design 1').
+prerequisite('Principles of Operations Management', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Coastal Engineering', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Building Construction 3', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Modern Physics 2', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Fundamentals of Management 2', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Data Mining 3', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Internal Combustion Engines', 'Computer Programming (C/C++)').
+prerequisite('Material Science 1', 'Computer Programming (C/C++)').
+prerequisite('Experimental GIS 2', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Digital Fabrication', 'Computer Programming (C/C++)').
+prerequisite('Experimental Fundamentals of Management 1', 'Technical Report Writing').
+prerequisite('Electrical Machines 1', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Fracture Mechanics', 'Physics 1 (Mechanics)').
+prerequisite('Applied Industrial Robotics 3', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Highway Engineering 2', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Topology 1', 'Mathematics 1 (Calculus)').
+prerequisite('Organizational Behavior', 'Computer Programming (C/C++)').
+prerequisite('Computational Robotics 3', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Communication Theory 3', 'Mathematics 1 (Calculus)').
+prerequisite('Principles of Operations Management 1', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Reinforced Concrete Design', 'Structural Analysis 1').
+prerequisite('Fundamentals of Statistics 1', 'Mathematics 1 (Calculus)').
+prerequisite('Advanced Organizational Behavior', 'Technical Report Writing').
+prerequisite('Applied Human-Computer Interaction 2', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Six Sigma 1', 'Production Engineering').
+prerequisite('Steel Structures 3', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Housing Development 1', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Compiler Design 1', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical High Voltage Engineering', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Kinematics 1', 'Computer Programming (C/C++)').
+prerequisite('Principles of Computer Integrated Manufacturing', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Landscape Architecture 1', 'Architectural Design 1').
+prerequisite('Applied Linear Algebra 2', 'Computer Programming (C/C++)').
+prerequisite('Public Speaking 2', 'Computer Programming (C/C++)').
+prerequisite('Advanced Embedded Systems 2', 'Computer Programming (C/C++)').
+prerequisite('Principles of Digital Signal Processing 2', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Internal Combustion Engines 3', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Manufacturing Processes 2', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Environmental Control 1', 'Mathematics 1 (Calculus)').
+prerequisite('Experimental Philosophy of Science 1', 'Technical Report Writing').
+prerequisite('Computational Natural Language Processing', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Aerospace Engineering 2', 'Machine Design 1').
+prerequisite('Theoretical Project Management 2', 'Mathematics 1 (Calculus)').
+prerequisite('Contemporary Advanced Steel Design 2', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Historic Preservation 3', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Human Rights 1', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Power Electronics 2', 'Computer Programming (C/C++)').
+prerequisite('Robotics and Automation 2', 'Physics 1 (Mechanics)').
+prerequisite('Theoretical Computer Integrated Manufacturing 2', 'Production Engineering').
+prerequisite('Principles of Construction Management 2', 'Mathematics 1 (Calculus)').
+prerequisite('Computational Inorganic Chemistry 3', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Public Speaking', 'Computer Programming (C/C++)').
+prerequisite('Applied Internet of Things 3', 'Physics 1 (Mechanics)').
+prerequisite('Introduction to High Voltage Engineering', 'Physics 1 (Mechanics)').
+prerequisite('Fundamentals of Nanotechnology 3', 'Mathematics 1 (Calculus)').
+prerequisite('Theoretical Manufacturing Processes', 'Production Engineering').
+prerequisite('Bridge Engineering 3', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Urban Sociology', 'Architectural Design 1').
+prerequisite('Computational Business Communication 1', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Cryptography', 'Computer Programming (C/C++)').
+prerequisite('Computational Industrial Automation', 'Computer Programming (C/C++)').
+prerequisite('Theoretical Aerospace Engineering 1', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Ergonomics 2', 'Production Engineering').
+prerequisite('Principles of Interior Design 3', 'Architectural Design 1').
+prerequisite('Computational Philosophy of Science', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Antenna Theory 1', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Refrigeration and Air Conditioning 1', 'Computer Programming (C/C++)').
+prerequisite('Industrial Robotics 3', 'Physics 1 (Mechanics)').
+prerequisite('Contemporary Bridge Engineering 1', 'Computer Programming (C/C++)').
+prerequisite('Computational Building Construction 2', 'Computer Programming (C/C++)').
+prerequisite('Applied Optics 1', 'Computer Programming (C/C++)').
+prerequisite('Applied Formal Languages 2', 'Introduction to Computer Engineering').
+prerequisite('VLSI Design 2', 'Physics 1 (Mechanics)').
+prerequisite('Principles of Automotive Engineering 2', 'Computer Programming (C/C++)').
+prerequisite('Fundamentals of Bridge Engineering 2', 'Computer Programming (C/C++)').
+prerequisite('Quantum Mechanics 3', 'Physics 1 (Mechanics)').
+prerequisite('Advanced Business Communication 2', 'Technical Report Writing').
+prerequisite('Digital Fabrication 2', 'Mathematics 1 (Calculus)').
+prerequisite('Fundamentals of Calculus of Variations 3', 'Computer Programming (C/C++)').
+prerequisite('Experimental Macroeconomics 2', 'Physics 1 (Mechanics)').
+prerequisite('Experimental Digital Logic 2', 'Mathematics 1 (Calculus)').
+prerequisite('Applied Electromagnetic Fields 3', 'Computer Programming (C/C++)').
+prerequisite('Introduction to Tribology 1', 'Computer Programming (C/C++)').
+prerequisite('Six Sigma 3', 'Computer Programming (C/C++)').
 
 % -----------------------------------------------------------------
 % 5. KNOWLEDGE BASE — COURSE TAGS
