@@ -17,6 +17,7 @@ def recommend_course(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            print(data)
 
             advisor = PrologAdvisorService()
             recommendations = advisor.get_recommendations(data)
