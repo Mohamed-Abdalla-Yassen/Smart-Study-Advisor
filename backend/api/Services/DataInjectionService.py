@@ -13,6 +13,7 @@ class DataInjectionService:
         passed_courses = data.get('prereqs', [])
         diffs = data.get('difficulties', ['Easy', 'Medium', 'Hard'])
 
+        print(data)
         try:
             # λ interests . str(interests).replace('"', "'")
             # Lambda transformation to convert Python double-quoted strings into Prolog-compatible single-quoted atoms within a list.
