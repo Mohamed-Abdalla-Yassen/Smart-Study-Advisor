@@ -409,7 +409,7 @@ The hybrid approach gives you the **verifiability of logic** with the **flexibil
 
 | Role | Responsibility |
 |------|---------------|
-| 🎨 **Frontend Engineer** | React Native app — screens, UI/UX, API integration, multi-select form |
+| 🎨 **Frontend Engineer** | React Native app — screens, API integration, multi-select form |
 | ⚙️ **Backend Engineer** | Django REST API — views, OOP service architecture, Excel KB integration |
 | 🧠 **Logic Programmer** | Prolog inference engine — tiered rules, facts, dynamic injection |
 | 🤖 **AI Integrator** | Gemini API — prompt engineering, response parsing, fallback handling |
