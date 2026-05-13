@@ -2,8 +2,8 @@
 // lib/services/apiService.ts
 import { StudentForm, CourseResult, CourseMapper, studentFormToJson } from '../models/models';
 
-// const BASE_URL = 'http://192.168.1.28:8000/api'; // your PC's IP
-const BASE_URL = 'http://127.0.0.1:8000/api';
+const BASE_URL = 'http://192.168.1.28:8000/api'; // your PC's IP
+// const BASE_URL = 'http://127.0.0.1:8000/api';
 // const BASE_URL = 'http://10.0.2.2:8000/api'; // Android emulator
 // const BASE_URL = 'http://YOUR_PC_IP:8000/api'; // Real device
 
